@@ -46,7 +46,7 @@ public class Curagon : MonoBehaviour
         {
             stamina = maxStamina;
         }
-        UIManager.instance.UpdateStatsUI((int)happiness, (int)hunger, (int)stamina);
+        UIManager.instance.UpdateStatsUI(happiness / maxHappiness, (int)hunger, (int)stamina);
     }
     public void Feed(float amount)
     {
@@ -60,6 +60,7 @@ public class Curagon : MonoBehaviour
         {
             Poop();
         }
+        Village.instance.SetWork(false);
     }
 
     private void Poop()
@@ -75,11 +76,12 @@ public class Curagon : MonoBehaviour
         {
             happiness = maxHappiness;
         }
+        Village.instance.SetWork(false);
     }
 
-    public void Work(float amount)
+    public void Work()
     {
-        
+        Village.instance.SetWork(true);
     }
 
     public void Sleep(float amount)
@@ -89,6 +91,7 @@ public class Curagon : MonoBehaviour
         {
             stamina = maxStamina;
         }
+        Village.instance.SetWork(false);
     }
 
     public void Clean()
