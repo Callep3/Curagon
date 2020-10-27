@@ -12,8 +12,7 @@ public class Curagon : MonoBehaviour
     public float stamina;
     public int maxPoop = 10;
     public int poop;
-    [SerializeField]
-    private float poopOnFloor = 1f;
+    [SerializeField] private float poopOnFloor = 1f;
 
     public float baseHappinessReductionRate;
     public float baseHungerReductionRate;
@@ -34,32 +33,29 @@ public class Curagon : MonoBehaviour
         hunger -= Time.deltaTime * baseHungerReductionRate;
         happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor;
         stamina -= Time.deltaTime * baseStaminaReductionRate;
+        
         UpdateStats();
     }
     private void UpdateStats()
     {
-        if (happiness >= maxHappiness)
-        {
-            happiness = maxHappiness;
-        }
-        if (stamina >= maxStamina)
-        {
-            stamina = maxStamina;
-        }
-        UIManager.instance.UpdateStatsUI(happiness / maxHappiness, (int)hunger, (int)stamina);
+        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
+        happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
+        stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+
+        UIManager.instance.UpdateStatsUI( happiness / maxHappiness,
+                                            hunger / maxHunger,
+                                            stamina / maxStamina);
     }
     public void Feed(float amount)
     {
         hunger += amount;
-        if (hunger >= maxHunger)
-        {
-            hunger = maxHunger;
-        }
+
         poop += Mathf.FloorToInt(amount / 2);
         if (poop >= maxPoop)
         {
             Poop();
         }
+        
         Village.instance.SetWork(false);
     }
 

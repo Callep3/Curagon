@@ -7,24 +7,17 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance = null;
-    [SerializeField]
-    TMP_Text happinessText;
-    [SerializeField]
-    TMP_Text hungerText;
-    [SerializeField]
-    TMP_Text staminaText;
-    [SerializeField]
-    TMP_Text villageText;
-    [SerializeField]
-    Curagon curagon;
-    [SerializeField]
-    Image happinessImage;
-    [SerializeField]
-    Image villageProgressImage;
-    //[SerializeField]
-    //Image hungerImage;
-    //[SerializeField]
-    //Image staminaImage;
+    [SerializeField] TMP_Text happinessText;
+    [SerializeField] TMP_Text hungerText;
+    [SerializeField] TMP_Text staminaText;
+    [SerializeField] TMP_Text villageEXPText;
+    [SerializeField] TMP_Text villageHealthText;
+    [SerializeField] Curagon curagon;
+    [SerializeField] Image happinessImage;
+    [SerializeField] Image hungerImage;
+    [SerializeField] Image staminaImage;
+    [SerializeField] Image villageProgressImage;
+    [SerializeField] Image villageHealthImage;
 
     private void Awake()
     {
@@ -39,18 +32,26 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void UpdateStatsUI(float happinessProcent, int hunger, int stamina)
+    public void UpdateStatsUI(float happiness, float hunger, float stamina)
     {
-        happinessText.text = Mathf.CeilToInt(happinessProcent * 100).ToString();
-        hungerText.text = "hunger: " + hunger;
-        staminaText.text = "stamina: " + stamina;
-        happinessImage.fillAmount = happinessProcent;
-        happinessImage.color = GetStatusColor(happinessProcent);
+        happinessText.text = Mathf.CeilToInt(happiness * 100).ToString() + "%";
+        hungerText.text = Mathf.CeilToInt(hunger * 100).ToString() + "%";
+        staminaText.text = Mathf.CeilToInt(stamina * 100).ToString() + "%";
+        
+        happinessImage.fillAmount = happiness;
+        happinessImage.color = GetStatusColor(happiness);
+        
+        hungerImage.fillAmount = hunger;
+        hungerImage.color = GetStatusColor(hunger);
+        
+        staminaImage.fillAmount = stamina;
+        staminaImage.color = GetStatusColor(stamina);
     }
 
     private Color GetStatusColor(float procent)
     {
         return new Color(1 - procent, procent, 0);
+        
         if (procent > 0.7f)
         {
             return new Color(0, 1, 0);
@@ -89,8 +90,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateVillage(float health, float exp)
     {
-        villageText.text = "Village: " + Mathf.CeilToInt(health) + "%";
+        villageHealthText.text = Mathf.CeilToInt(health * 100) + "%";
+        villageEXPText.text = Mathf.CeilToInt(exp * 100) + "%";
+        
         villageProgressImage.fillAmount = exp;
         villageProgressImage.color = GetStatusColor(exp);
+
+        villageHealthImage.fillAmount = health;
+        villageHealthImage.color = GetStatusColor(health);
     }
 }

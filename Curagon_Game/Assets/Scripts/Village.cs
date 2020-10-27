@@ -6,16 +6,12 @@ public class Village : MonoBehaviour
 {
     public static Village instance = null;
     int level;
-    [SerializeField]
-    float experience = 0f;
-    [SerializeField]
-    float experienceTreshold = 100f;
-    [SerializeField]
-    float health;
-    [SerializeField]
-    float maxHealth = 10f;
-    [SerializeField]
-    bool working;
+    [SerializeField] float experience = 0f;
+    [SerializeField] float experienceTreshold = 100f;
+    [SerializeField] float health;
+    [SerializeField] float maxHealth = 10f;
+    [SerializeField] bool working;
+    [SerializeField] private float workSpeedScale = 1f;
 
     private void Awake()
     {
@@ -35,7 +31,7 @@ public class Village : MonoBehaviour
     private void Update()
     {
         health -= Time.deltaTime;
-        UIManager.instance.UpdateVillage(Mathf.Round(health / maxHealth * 100), experience / experienceTreshold);
+        UIManager.instance.UpdateVillage(health / maxHealth, experience / experienceTreshold);
         if (working)
         {
             Working();
@@ -44,7 +40,8 @@ public class Village : MonoBehaviour
 
     private void Working()
     {
-        experience += Time.deltaTime;
+        experience += Time.deltaTime * workSpeedScale;
+        
         if (experience >= experienceTreshold)
         {
             level++;
