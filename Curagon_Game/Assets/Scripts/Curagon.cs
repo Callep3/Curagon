@@ -101,7 +101,7 @@ public class Curagon : MonoBehaviour
         {
             Poop();
         }
-
+        ClearAnimation();
         animator.SetTrigger("Eat");
 
         Village.instance.SetWork(false);
@@ -120,11 +120,17 @@ public class Curagon : MonoBehaviour
         {
             happiness = maxHappiness;
         }
+        ClearAnimation();
+        animator.SetBool("Play", true);
+
         Village.instance.SetWork(false);
     }
 
     public void Work()
     {
+        ClearAnimation();
+        animator.SetBool("Work", true);
+
         Village.instance.SetWork(true);
     }
 
@@ -135,6 +141,9 @@ public class Curagon : MonoBehaviour
         {
             stamina = maxStamina;
         }
+        ClearAnimation();
+        animator.SetBool("Sleep", true);
+
         Village.instance.SetWork(false);
     }
 
@@ -187,5 +196,12 @@ public class Curagon : MonoBehaviour
         stamina = maxStamina;
         poopOnFloor = 1;
         poop = 0;
+    }
+
+    void ClearAnimation()
+    {
+        animator.SetBool("Play", false);
+        animator.SetBool("Idle", false);
+        animator.SetBool("Sleep", false);
     }
 }
