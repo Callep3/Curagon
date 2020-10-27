@@ -13,11 +13,16 @@ public class Curagon : MonoBehaviour
     public int maxPoop = 10;
     public int poop;
     [SerializeField] private float poopOnFloor = 1f;
+    private Animator animator;
 
     public float baseHappinessReductionRate;
     public float baseHungerReductionRate;
     public float baseStaminaReductionRate;
 
+    void Awake()
+    {//Get the animator
+        animator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -96,7 +101,9 @@ public class Curagon : MonoBehaviour
         {
             Poop();
         }
-        
+
+        animator.SetTrigger("Eat");
+
         Village.instance.SetWork(false);
     }
 
