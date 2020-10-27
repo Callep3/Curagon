@@ -7,9 +7,9 @@ public class Village : MonoBehaviour
     public static Village instance = null;
     int level;
     [SerializeField]
-    float experience = 0.1f;
+    float experience = 0f;
     [SerializeField]
-    float experienceTreshold = 100;
+    float experienceTreshold = 100f;
     [SerializeField]
     float health;
     [SerializeField]
@@ -35,7 +35,7 @@ public class Village : MonoBehaviour
     private void Update()
     {
         health -= Time.deltaTime;
-        UIManager.instance.UpdateVillage(Mathf.Round(health / maxHealth * 100), Mathf.Round(experience / experienceTreshold));
+        UIManager.instance.UpdateVillage(Mathf.Round(health / maxHealth * 100), experience / experienceTreshold);
         if (working)
         {
             Working();
@@ -57,6 +57,4 @@ public class Village : MonoBehaviour
     {
         working = active;
     }
-
-
 }

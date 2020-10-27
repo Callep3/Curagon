@@ -91,7 +91,6 @@ public class UIManager : MonoBehaviour
     {
         villageText.text = "Village: " + Mathf.CeilToInt(health) + "%";
         villageProgressImage.fillAmount = exp;
-        Debug.Log(exp);
-        //villageProgressImage.color = GetStatusColor(exp);
+        villageProgressImage.color = GetStatusColor(exp);
     }
 }
