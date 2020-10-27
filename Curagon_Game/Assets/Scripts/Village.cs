@@ -5,11 +5,12 @@ using UnityEngine;
 public class Village : MonoBehaviour
 {
     public static Village instance = null;
-    int level;
+    
+    [SerializeField] private int level = 1;
     [SerializeField] float experience = 0f;
-    [SerializeField] float experienceTreshold = 100f;
+    [SerializeField] float maxExperience = 100f;
     [SerializeField] float health;
-    [SerializeField] float maxHealth = 10f;
+    [SerializeField] float maxHealth = 60f;
     [SerializeField] bool working;
     [SerializeField] private float workSpeedScale = 1f;
 
@@ -30,8 +31,9 @@ public class Village : MonoBehaviour
 
     private void Update()
     {
-        health -= Time.deltaTime;
-        UIManager.instance.UpdateVillage(health / maxHealth, experience / experienceTreshold);
+        health = Mathf.Clamp(health - Time.deltaTime, 0f, maxHealth);
+        UIManager.instance.UpdateVillage(health / maxHealth, experience / maxExperience, level);
+        
         if (working)
         {
             Working();
@@ -42,11 +44,15 @@ public class Village : MonoBehaviour
     {
         experience += Time.deltaTime * workSpeedScale;
         
-        if (experience >= experienceTreshold)
+        if (experience >= maxExperience)
         {
             level++;
-            experienceTreshold *= 1.5f;
+            
+            maxExperience *= 1.5f;
             experience = 0;
+            
+            maxHealth *= 1.5f;
+            health = maxHealth;
         }
     }
 

@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text hungerText;
     [SerializeField] TMP_Text staminaText;
     [SerializeField] TMP_Text villageEXPText;
+    [SerializeField] TMP_Text villageLevelText;
     [SerializeField] TMP_Text villageHealthText;
     [SerializeField] Curagon curagon;
     [SerializeField] Image happinessImage;
@@ -88,10 +89,11 @@ public class UIManager : MonoBehaviour
         curagon.Clean();
     }
 
-    public void UpdateVillage(float health, float exp)
+    public void UpdateVillage(float health, float exp, int level)
     {
         villageHealthText.text = Mathf.CeilToInt(health * 100) + "%";
         villageEXPText.text = Mathf.CeilToInt(exp * 100) + "%";
+        villageLevelText.text = "LEVEL: " + level;
         
         villageProgressImage.fillAmount = exp;
         villageProgressImage.color = GetStatusColor(exp);

@@ -219,7 +219,7 @@ RectTransform:
   - {fileID: 1952223236}
   - {fileID: 2062183713}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -242,6 +242,7 @@ MonoBehaviour:
   hungerText: {fileID: 191027945}
   staminaText: {fileID: 1096714479}
   villageEXPText: {fileID: 1376266947}
+  villageLevelText: {fileID: 909156592}
   villageHealthText: {fileID: 1505806423}
   curagon: {fileID: 1875854304}
   happinessImage: {fileID: 694575919}
@@ -249,6 +250,39 @@ MonoBehaviour:
   staminaImage: {fileID: 1030475804}
   villageProgressImage: {fileID: 326209188}
   villageHealthImage: {fileID: 996775236}
+--- !u!1 &102953097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 102953098}
+  m_Layer: 0
+  m_Name: Lights
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &102953098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102953097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 441169967}
+  - {fileID: 763004376}
+  - {fileID: 1746286366}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &149964836
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +310,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7117133485881436306}
   - {fileID: 461655102}
   m_Father: {fileID: 1875854303}
   m_RootOrder: 0
@@ -757,8 +792,8 @@ Transform:
   m_LocalPosition: {x: -16.9, y: 4.7990627, z: -17.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 102953098}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 23.489, y: -315.469, z: -240.254}
 --- !u!1 &461655101
 GameObject:
@@ -789,7 +824,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 149964837}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &461655103
 SpriteRenderer:
@@ -1640,8 +1675,8 @@ Transform:
   m_LocalPosition: {x: 9.5, y: 4.7990627, z: -17.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 102953098}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 23.489, y: -396.922, z: -240.254}
 --- !u!1 &909156590
 GameObject:
@@ -2585,10 +2620,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faacea99599318e43801292ca33c7f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experience: 40
+  level: 1
+  experience: 0
   experienceTreshold: 100
   health: 0
-  maxHealth: 10
+  maxHealth: 60
   working: 0
   workSpeedScale: 5
 --- !u!4 &1251925316
@@ -2599,11 +2635,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251925314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 279.31995, y: 125.91067, z: -29.080173}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1267020273
 GameObject:
@@ -3786,8 +3822,8 @@ Transform:
   m_LocalPosition: {x: -3.8, y: 9.88, z: 18.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 102953098}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 28.349, y: -865.36096, z: -766.306}
 --- !u!1 &1753366919
 GameObject:
@@ -4169,12 +4205,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875854302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 149964837}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1875854304
 MonoBehaviour:
@@ -4459,14 +4495,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7117133485881436305
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 149964837}
     m_Modifications:
     - target: {fileID: 7254820978297036861, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
       propertyPath: m_Name
@@ -4478,7 +4514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8063023955629456007, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.57
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 8063023955629456007, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4502,7 +4538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8063023955629456007, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8063023955629456007, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4518,3 +4554,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
+--- !u!4 &7117133485881436306 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8063023955629456007, guid: 4c011b3a2c4a2bb44a4dc2bd5076aa34, type: 3}
+  m_PrefabInstance: {fileID: 7117133485881436305}
+  m_PrefabAsset: {fileID: 0}
