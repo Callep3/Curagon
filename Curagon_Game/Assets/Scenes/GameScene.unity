@@ -2148,6 +2148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faacea99599318e43801292ca33c7f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  experience: 40
+  experienceTreshold: 100
+  health: 0
+  maxHealth: 10
+  working: 0
 --- !u!4 &1251925316
 Transform:
   m_ObjectHideFlags: 0
