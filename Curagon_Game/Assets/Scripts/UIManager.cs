@@ -13,12 +13,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text villageEXPText;
     [SerializeField] TMP_Text villageLevelText;
     [SerializeField] TMP_Text villageHealthText;
+    
     [SerializeField] Curagon curagon;
+    
     [SerializeField] Image happinessImage;
     [SerializeField] Image hungerImage;
     [SerializeField] Image staminaImage;
     [SerializeField] Image villageProgressImage;
     [SerializeField] Image villageHealthImage;
+
+    [SerializeField] private ParticleStats[] particleStats;
 
     private void Awake()
     {
@@ -67,26 +71,31 @@ public class UIManager : MonoBehaviour
     public void Feed()
     {
         curagon.Feed(5f);
+        particleStats[(int)Particle_Stats.Hunger].Play(Particle_Material.Plus);
     }
 
     public void Play()
     {
         curagon.Play(5f);
+        particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
     }
 
     public void Work()
     {
         curagon.Work();
+        particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Minus);
     }
 
     public void Sleep()
     {
         curagon.Sleep(5f);
+        particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Plus);
     }
 
     public void Clean()
     {
         curagon.Clean();
+        particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
     }
 
     public void UpdateVillage(float health, float exp, int level)
@@ -101,4 +110,11 @@ public class UIManager : MonoBehaviour
         villageHealthImage.fillAmount = health;
         villageHealthImage.color = GetStatusColor(health);
     }
+}
+
+public enum Particle_Stats : int
+{
+    Happiness = 0,
+    Hunger,
+    Stamina
 }
