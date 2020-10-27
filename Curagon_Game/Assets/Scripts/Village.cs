@@ -5,13 +5,15 @@ using UnityEngine;
 public class Village : MonoBehaviour
 {
     public static Village instance = null;
-    
+
+    [SerializeField] Curagon curagon;
+
     [SerializeField] private int level = 1;
     [SerializeField] float experience = 0f;
     [SerializeField] float maxExperience = 100f;
     [SerializeField] float health;
     [SerializeField] float maxHealth = 60f;
-    [SerializeField] bool working;
+    [SerializeField] public bool working;
     [SerializeField] private float workSpeedScale = 1f;
 
     private void Awake()
@@ -26,14 +28,14 @@ public class Village : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        health = maxHealth;
+        Restart();
     }
 
     private void Update()
     {
         health = Mathf.Clamp(health - Time.deltaTime, 0f, maxHealth);
         UIManager.instance.UpdateVillage(health / maxHealth, experience / maxExperience, level);
-        
+
         if (working)
         {
             Working();
@@ -42,15 +44,21 @@ public class Village : MonoBehaviour
 
     private void Working()
     {
-        experience += Time.deltaTime * workSpeedScale;
-        
+        if (curagon.GetWorkingCondition() <= 0)
+        {
+            working = false;
+            return;
+        }
+
+        experience += Time.deltaTime * workSpeedScale * curagon.GetWorkingCondition();
+
         if (experience >= maxExperience)
         {
             level++;
-            
+
             maxExperience *= 1.5f;
             experience = 0;
-            
+
             maxHealth *= 1.5f;
             health = maxHealth;
         }
@@ -59,5 +67,16 @@ public class Village : MonoBehaviour
     public void SetWork(bool active)
     {
         working = active;
+    }
+
+    public void Restart()
+    {
+        working = false;
+        maxHealth = 60f;
+        health = maxHealth;
+        level = 1;
+        experience = 0;
+        maxExperience = 100;
+        workSpeedScale = 1f;
     }
 }

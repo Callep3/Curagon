@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text villageHealthText;
     
     [SerializeField] Curagon curagon;
-    
+
     [SerializeField] Image happinessImage;
     [SerializeField] Image hungerImage;
     [SerializeField] Image staminaImage;
@@ -110,6 +111,13 @@ public class UIManager : MonoBehaviour
         villageHealthImage.fillAmount = health;
         villageHealthImage.color = GetStatusColor(health);
     }
+
+    public void RestartButton()
+    {
+        Village.instance.Restart();
+        curagon.Restart();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
 
 public enum Particle_Stats : int
@@ -118,3 +126,5 @@ public enum Particle_Stats : int
     Hunger,
     Stamina
 }
+
+

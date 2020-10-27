@@ -22,30 +22,71 @@ public class Curagon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        happiness = maxHappiness;
-        hunger = maxHunger;
-        stamina = maxStamina;
+        Restart();
     }
 
     // Update is called once per frame
     void Update()
     {
-        hunger -= Time.deltaTime * baseHungerReductionRate;
-        happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor;
-        stamina -= Time.deltaTime * baseStaminaReductionRate;
-        
         UpdateStats();
     }
     private void UpdateStats()
     {
-        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
-        happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
-        stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+        UpdateHunger();
+        UpdateHappiness();
+        UpdateStamina();
 
         UIManager.instance.UpdateStatsUI( happiness / maxHappiness,
                                             hunger / maxHunger,
                                             stamina / maxStamina);
     }
+
+    private void UpdateHunger()
+    {
+        float staminaScale = 1;
+        float staminaProcent = stamina / maxStamina;
+        if (staminaProcent <= 0.4)
+        {
+            staminaScale = 2;
+        }
+
+        hunger -= Time.deltaTime * baseHungerReductionRate * staminaScale;
+
+        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
+    }
+
+
+    private void UpdateHappiness()
+    {
+        float hungerScale = 1;
+        float hungerProcent = hunger / maxHunger;
+        if (hungerProcent <= 0.5)
+        {
+            hungerScale = 2;
+        }
+        else if (hungerProcent <= 0.25)
+        {
+            hungerScale = 3;
+        }
+
+        happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
+
+        happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
+    }
+
+    private void UpdateStamina()
+    {
+        float workingScale = 1;
+        if (Village.instance.working)
+        {
+            workingScale = 3.0f;
+        }
+
+        stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
+
+        stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+    }
+
     public void Feed(float amount)
     {
         hunger += amount;
@@ -93,5 +134,51 @@ public class Curagon : MonoBehaviour
     public void Clean()
     {
         poopOnFloor = 1.0f;
+    }
+
+    public float GetWorkingCondition()
+    {
+        float workingConstant = 1;
+        float staminaProcent = stamina / maxStamina;
+        float happinessProcent = happiness / maxHappiness;
+        float hungerProcent = hunger / maxHunger;
+
+        if (staminaProcent <= 0.2)
+        {
+            return 0;
+        }
+        else if (staminaProcent >= 0.8)
+        {
+            workingConstant *= 1.5f;
+        }
+
+        if (happinessProcent <= 0.3)
+        {
+            workingConstant *= 0.5f;
+        }
+        else if (happinessProcent >= 0.8)
+        {
+            workingConstant *= 1.5f;
+        }
+
+        if (hungerProcent <= 0.3)
+        {
+            workingConstant *= 0.5f;
+        }
+        else if (hungerProcent >= 0.8)
+        {
+            workingConstant *= 1.5f;
+        }
+
+        return workingConstant;
+    }
+
+    public void Restart()
+    {
+        happiness = maxHappiness;
+        hunger = maxHunger;
+        stamina = maxStamina;
+        poopOnFloor = 1;
+        poop = 0;
     }
 }

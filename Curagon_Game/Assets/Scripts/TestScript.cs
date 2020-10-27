@@ -6,7 +6,7 @@ public class TestScript : MonoBehaviour
 {
     /* -- Rules --
      * - Happiness -
-     * If too low (30%?), can't work
+     * If too low (30%?), work worse
      * If poop on floor happiness goes down fast
      * If hunger too low, happiness goes down faster
      * If work happiness goes down faster
