@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text villageEXPText;
     [SerializeField] TMP_Text villageLevelText;
     [SerializeField] TMP_Text villageHealthText;
+
+    public TMP_Text AppleCounter;
     
     [SerializeField] Curagon curagon;
 
@@ -36,6 +38,11 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void Update()
+    {
+        AppleCounter.text = curagon.numberOfApples.ToString();
     }
 
     public void UpdateStatsUI(float happiness, float hunger, float stamina)
