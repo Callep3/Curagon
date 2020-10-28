@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bfc20c754ecae41ad54e277306b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 3396920050951799339}
-  audioClips: []
 --- !u!95 &3396920049437425483
 Animator:
   serializedVersion: 3
@@ -109,7 +107,7 @@ GameObject:
   - component: {fileID: 3396920050951799337}
   - component: {fileID: 3396920050951799336}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: Curagon-Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,13 +383,17 @@ PrefabInstance:
       propertyPath: startDelay.scalar
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 5838308472388569641, guid: 625c339fd7e4f3c408e78cc55aa72206, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5838308472388569646, guid: 625c339fd7e4f3c408e78cc55aa72206, type: 3}
       propertyPath: m_Name
-      value: Smoke
+      value: CuragonSmokeParticle
       objectReference: {fileID: 0}
     - target: {fileID: 5838308472388569646, guid: 625c339fd7e4f3c408e78cc55aa72206, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5838308472388569647, guid: 625c339fd7e4f3c408e78cc55aa72206, type: 3}
       propertyPath: m_LocalPosition.x

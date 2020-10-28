@@ -934,10 +934,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3396920049437425482, guid: 1dd8921e28b07404c853007699fe5aa7, type: 3}
-      propertyPath: ball
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3396920049437425524, guid: 1dd8921e28b07404c853007699fe5aa7, type: 3}
       propertyPath: m_Name
       value: C-Dragon
@@ -985,10 +981,6 @@ PrefabInstance:
     - target: {fileID: 3396920049437425525, guid: 1dd8921e28b07404c853007699fe5aa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3396920050951799339, guid: 1dd8921e28b07404c853007699fe5aa7, type: 3}
-      propertyPath: m_Name
-      value: Curagon-Ball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dd8921e28b07404c853007699fe5aa7, type: 3}

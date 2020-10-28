@@ -5,7 +5,10 @@ using UnityEngine;
 public class Curagon : MonoBehaviour
 {
     Animator animator;
+    ParticleSystem smokeParticle;
     GameObject ball;
+    GameObject applePrefab;
+    Transform appleSpawnTransform;
     AudioClip[] audioClips;
     
     float happiness;
@@ -61,6 +64,10 @@ public class Curagon : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         ball = transform.Find("GFX").Find("Curagon-Ball").gameObject;
+        applePrefab = Resources.Load<GameObject>("Prefabs/Apple");
+        appleSpawnTransform = GameObject.Find("AppleSpawnLocation").transform;
+
+        smokeParticle = GameObject.Find("CuragonSmokeParticle").GetComponent<ParticleSystem>();
 
         string clipPath = "Audio/SFX/Curagon/";
         audioClips = new AudioClip[6];
@@ -163,6 +170,8 @@ public class Curagon : MonoBehaviour
             ClearAnimation();
             animator.SetTrigger("Eat");
 
+            GameObject apple = Instantiate(applePrefab, appleSpawnTransform);
+            Destroy(apple, 0.8f);
             Village.instance.SetWork(false);
         }
     }
@@ -195,6 +204,7 @@ public class Curagon : MonoBehaviour
         ClearAnimation();
         animator.SetBool("Work", true);
 
+        smokeParticle.Play();
         Village.instance.SetWork(true);
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
     }
@@ -268,6 +278,8 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Play", false);
         animator.SetBool("Idle", false);
         animator.SetBool("Sleep", false);
+        animator.SetBool("Work", false);
+        smokeParticle.Stop();
         
         ball.SetActive(false);
     }
