@@ -15,6 +15,12 @@ public class Curagon : MonoBehaviour
     [SerializeField] private float poopOnFloor = 1f;
     private Animator animator;
 
+    public GameObject ball;
+
+    public int numberOfApples = 5;
+    static float appleTimeSeconds = 5f;
+    float appleTimer = appleTimeSeconds;
+
     public float baseHappinessReductionRate;
     public float baseHungerReductionRate;
     public float baseStaminaReductionRate;
@@ -33,6 +39,17 @@ public class Curagon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Play"))
+        {
+            ball.SetActive(true);
+        }
+        else
+        {
+            ball.SetActive(false);
+        }
+
+
+        AddApple();
         UpdateStats();
     }
     private void UpdateStats()
@@ -94,17 +111,22 @@ public class Curagon : MonoBehaviour
 
     public void Feed(float amount)
     {
-        hunger += amount;
-
-        poop += Mathf.FloorToInt(amount / 2);
-        if (poop >= maxPoop)
+        if(numberOfApples > 0)
         {
-            Poop();
-        }
-        ClearAnimation();
-        animator.SetTrigger("Eat");
+            numberOfApples -= 1;
+            hunger += amount;
 
-        Village.instance.SetWork(false);
+            poop += Mathf.FloorToInt(amount / 2);
+            if (poop >= maxPoop)
+            {
+                Poop();
+            }
+
+            ClearAnimation();
+            animator.SetTrigger("Eat");
+
+            Village.instance.SetWork(false);
+        }
     }
 
     private void Poop()
@@ -136,6 +158,7 @@ public class Curagon : MonoBehaviour
 
     public void Sleep(float amount)
     {
+
         stamina += amount;
         if (stamina >= maxStamina)
         {
@@ -203,5 +226,19 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Play", false);
         animator.SetBool("Idle", false);
         animator.SetBool("Sleep", false);
+    }
+
+    void AddApple()
+    {
+        if(numberOfApples < 10)
+        {
+            appleTimer -= Time.deltaTime;
+            if (appleTimer <= 0.0f)
+            {
+                appleTimer = appleTimeSeconds;
+                numberOfApples++;
+                Debug.Log(numberOfApples);
+            }
+        }
     }
 }
