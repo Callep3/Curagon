@@ -5,9 +5,10 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance = null;
-
-    public AudioSource button_audioSource;
-    public AudioSource curagon_audioSource;
+    
+    AudioClip[] audioClips;
+    AudioSource soundEffects_audioSource;
+    AudioSource curagon_audioSource;
 
 
     private void Awake()
@@ -21,11 +22,27 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        Init();
+    }
+
+    private void Init()
+    {
+        GetAllComponents();
+    }
+
+    private void GetAllComponents()
+    {
+        curagon_audioSource = transform.Find("AudioSources").Find("CuragonAudio").GetComponent<AudioSource>();
+        soundEffects_audioSource = transform.Find("AudioSources").Find("ButtonAudio").GetComponent<AudioSource>();
+        audioClips = new AudioClip[1];
+        audioClips[0] = Resources.Load<AudioClip>("Audio/SFX/ButtonPressed_NoiseRemoved");
     }
 
     public void ButtonSound()
     {
-        button_audioSource.Play();
+        soundEffects_audioSource.clip = audioClips[(int)SoundEffects_Sounds.Button];
+        soundEffects_audioSource.Play();
     }
 
     public void PlayCuragonSound(AudioClip clip)
@@ -33,4 +50,9 @@ public class SoundManager : MonoBehaviour
         curagon_audioSource.clip = clip;
         curagon_audioSource.Play();
     }
+}
+
+public enum SoundEffects_Sounds : int
+{
+    Button
 }

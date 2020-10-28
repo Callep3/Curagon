@@ -6,7 +6,7 @@ public class Curagon : MonoBehaviour
 {
     Animator animator;
     [SerializeField] GameObject ball;
-    [SerializeField] AudioClip[] audioClips;
+    AudioClip[] audioClips;
     
     float happiness;
     float hunger;
@@ -55,13 +55,21 @@ public class Curagon : MonoBehaviour
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
         poopOnFloor = 1f;
+
+
     }
 
     void GetAllComponents()
     {
         animator = GetComponent<Animator>();
-        // ball = GameObject.Find("Curagon-Ball").gameObject;
-        // TEST COMMENT
+
+        audioClips = new AudioClip[6];
+        audioClips[0] = Resources.Load<AudioClip>("Audio/SFX/Curagon/kitten-meowing_0");
+        audioClips[1] = Resources.Load<AudioClip>("Audio/SFX/Curagon/kitten-meowing_1");
+        audioClips[2] = Resources.Load<AudioClip>("Audio/SFX/Curagon/Broom");
+        audioClips[3] = Resources.Load<AudioClip>("Audio/SFX/Curagon/kitten-meowing_3");
+        audioClips[4] = Resources.Load<AudioClip>("Audio/SFX/Curagon/cute-snore");
+        audioClips[5] = Resources.Load<AudioClip>("Audio/SFX/Curagon/Poop");
     }
     
     private void UpdateStats()
