@@ -123,28 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &16042983 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4140482060604191876, guid: 596c627d575c14915bb1621a6b167ebf, type: 3}
-  m_PrefabInstance: {fileID: 882479002}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d99174970cd04f3381afe737ab099b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &23731127 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4140482060604191876, guid: 596c627d575c14915bb1621a6b167ebf, type: 3}
-  m_PrefabInstance: {fileID: 1393634728}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d99174970cd04f3381afe737ab099b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &39796798
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,23 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06b0520aeae11741a73a8996ec0fced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  happinessText: {fileID: 645370746}
-  hungerText: {fileID: 191027945}
-  staminaText: {fileID: 1096714479}
-  villageEXPText: {fileID: 1376266947}
-  villageLevelText: {fileID: 909156592}
-  villageHealthText: {fileID: 1505806423}
-  AppleCounter: {fileID: 746397851}
-  curagon: {fileID: 1875854304}
-  happinessImage: {fileID: 694575919}
-  hungerImage: {fileID: 571526735}
-  staminaImage: {fileID: 1030475804}
-  villageProgressImage: {fileID: 326209188}
-  villageHealthImage: {fileID: 996775236}
-  particleStats:
-  - {fileID: 16042983}
-  - {fileID: 323853487}
-  - {fileID: 23731127}
 --- !u!1 &95665793
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,17 +779,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &323853487 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4140482060604191876, guid: 596c627d575c14915bb1621a6b167ebf, type: 3}
-  m_PrefabInstance: {fileID: 147659899}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d99174970cd04f3381afe737ab099b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &326209186
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,11 +947,6 @@ Transform:
   m_Father: {fileID: 102953098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 23.489, y: -315.469, z: -240.254}
---- !u!1 &441854138 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5838308472388569646, guid: 625c339fd7e4f3c408e78cc55aa72206, type: 3}
-  m_PrefabInstance: {fileID: 5838308472013841044}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &461655101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3054,14 +2999,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faacea99599318e43801292ca33c7f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curagon: {fileID: 1875854304}
-  level: 0
-  experience: 0
   maxExperience: 100
-  health: 0
-  maxHealth: 60
   working: 0
-  workSpeedScale: 10
 --- !u!4 &1251925316
 Transform:
   m_ObjectHideFlags: 0
@@ -4690,6 +4629,7 @@ GameObject:
   - component: {fileID: 1875854303}
   - component: {fileID: 1875854304}
   - component: {fileID: 1875854305}
+  - component: {fileID: 1875854306}
   m_Layer: 0
   m_Name: C-Dragon
   m_TagString: Untagged
@@ -4724,22 +4664,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bfc20c754ecae41ad54e277306b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHappiness: 100
-  happiness: 0
-  maxHunger: 100
-  hunger: 0
-  maxStamina: 100
-  stamina: 0
-  maxPoop: 10
-  poop: 0
-  poopOnFloor: 1
-  smoke: {fileID: 441854138}
   ball: {fileID: 95665793}
-  applePrefab: {fileID: 1148524443635290604, guid: ed9aebac135ea8d4ab3ec916b15e0409, type: 3}
-  numberOfApples: 5
-  baseHappinessReductionRate: 3
-  baseHungerReductionRate: 2
-  baseStaminaReductionRate: 1
+  audioClips:
+  - {fileID: 8300000, guid: 6fb43144a269d1442a6e91af7a16d4bb, type: 3}
+  - {fileID: 8300000, guid: c367392b26b04d54aab62466fdd6470f, type: 3}
+  - {fileID: 8300000, guid: aec07735df4bcfa4d85f02d8e1ebc253, type: 3}
+  - {fileID: 8300000, guid: bd00d365992902e4e80ec7be4dc0b9f5, type: 3}
+  - {fileID: 8300000, guid: b9476ec1e4a73884e8bdd7a0dab1e76f, type: 3}
+  - {fileID: 8300000, guid: 16460c97b88316e4f8cbfaf846f3f6f0, type: 3}
 --- !u!95 &1875854305
 Animator:
   serializedVersion: 3
@@ -4759,6 +4691,102 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &1875854306
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875854302}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1952223235
 GameObject:
   m_ObjectHideFlags: 0
