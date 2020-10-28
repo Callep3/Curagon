@@ -15,7 +15,10 @@ public class Curagon : MonoBehaviour
     [SerializeField] private float poopOnFloor = 1f;
     private Animator animator;
 
+    public GameObject smoke;
     public GameObject ball;
+    public GameObject applePrefab;
+    private Transform appleSpawnTransform;
 
     public int numberOfApples = 5;
     static float appleTimeSeconds = 5f;
@@ -26,8 +29,15 @@ public class Curagon : MonoBehaviour
     public float baseStaminaReductionRate;
 
     void Awake()
-    {//Get the animator
+    {
+        GetAllComponents();
+    }
+
+    private void GetAllComponents()
+    {
         animator = GetComponent<Animator>();
+
+        appleSpawnTransform = GameObject.Find("AppleSpawnLocation").GetComponent<Transform>();
     }
 
     // Start is called before the first frame update
@@ -48,6 +58,14 @@ public class Curagon : MonoBehaviour
             ball.SetActive(false);
         }
 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Work"))
+        {
+            smoke.SetActive(true);
+        }
+        else
+        {
+            smoke.SetActive(false);
+        }
 
         AddApple();
         UpdateStats();
@@ -124,6 +142,9 @@ public class Curagon : MonoBehaviour
 
             ClearAnimation();
             animator.SetTrigger("Eat");
+
+            GameObject apple = Instantiate(applePrefab, appleSpawnTransform);
+            Destroy(apple, 0.8f);
 
             Village.instance.SetWork(false);
         }
@@ -226,6 +247,7 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Play", false);
         animator.SetBool("Idle", false);
         animator.SetBool("Sleep", false);
+        animator.SetBool("Work", false);
     }
 
     void AddApple()
