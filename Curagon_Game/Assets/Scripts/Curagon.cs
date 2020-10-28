@@ -5,8 +5,8 @@ using UnityEngine;
 public class Curagon : MonoBehaviour
 {
     Animator animator;
-    [SerializeField] GameObject ball;
-    [SerializeField] AudioClip[] audioClips;
+    GameObject ball;
+    AudioClip[] audioClips;
     
     float happiness;
     float hunger;
@@ -60,8 +60,7 @@ public class Curagon : MonoBehaviour
     void GetAllComponents()
     {
         animator = GetComponent<Animator>();
-        // ball = GameObject.Find("Curagon-Ball").gameObject;
-        // TEST COMMENT
+        ball = transform.Find("GFX").Find("Curagon-Ball").gameObject;
     }
     
     private void UpdateStats()
