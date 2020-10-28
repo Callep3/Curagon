@@ -5,10 +5,21 @@ using UnityEngine;
 public class Curagon : MonoBehaviour
 {
     Animator animator;
+
     ParticleSystem smokeParticle;
+
     GameObject ball;
+
     GameObject applePrefab;
     Transform appleSpawnTransform;
+
+    GameObject poopPrefab;
+    Transform poopSpawnTransform_01;
+    Transform poopSpawnTransform_02;
+    Transform poopSpawnTransform_03;
+
+    GameObject[] poopInGame = new GameObject[3];
+
     AudioClip[] audioClips;
     
     float happiness;
@@ -24,6 +35,10 @@ public class Curagon : MonoBehaviour
     int numberOfApples;
     const float appleTimeSeconds = 5f;
     float appleTimer;
+
+    int numberOfChickens;
+    const float chickenTimeSeconds = 2f;
+    float chickenTimer;
 
     float baseHappinessReductionRate;
     float baseHungerReductionRate;
@@ -74,6 +89,11 @@ public class Curagon : MonoBehaviour
         ball = transform.Find("GFX").Find("Curagon-Ball").gameObject;
         applePrefab = Resources.Load<GameObject>("Prefabs/Apple");
         appleSpawnTransform = GameObject.Find("AppleSpawnLocation").transform;
+
+        poopPrefab = Resources.Load<GameObject>("Prefabs/Poop");
+        poopSpawnTransform_01 = GameObject.Find("PoopSpawnLocation_01").transform;
+        poopSpawnTransform_02 = GameObject.Find("PoopSpawnLocation_02").transform;
+        poopSpawnTransform_03 = GameObject.Find("PoopSpawnLocation_03").transform;
 
         smokeParticle = GameObject.Find("CuragonSmokeParticle").GetComponent<ParticleSystem>();
 
@@ -187,7 +207,34 @@ public class Curagon : MonoBehaviour
     private void Poop()
     {
         poop = 0;
-        poopOnFloor = 2.0f;
+        //poopOnFloor = 2.0f;
+        //Spawn poop graphic
+        for(int i = 0; i < poopInGame.Length; i++ )
+        {
+            if(poopInGame[i] == null)
+            {
+                if(i == 0)
+                {
+                    poopOnFloor = 2.0f;
+                    GameObject poopClone = Instantiate(poopPrefab, poopSpawnTransform_01);
+                    poopInGame[i] = poopClone;
+                }
+                else if(i == 1)
+                {
+                    poopOnFloor = 3.0f;
+                    GameObject poopClone = Instantiate(poopPrefab, poopSpawnTransform_02);
+                    poopInGame[i] = poopClone;
+                }
+                else if(i == 2)
+                {
+                    poopOnFloor = 4.0f;
+                    GameObject poopClone = Instantiate(poopPrefab, poopSpawnTransform_03);
+                    poopInGame[i] = poopClone;
+                }
+                break;
+            }
+        }
+        
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Poop]);
     }
 
@@ -234,6 +281,13 @@ public class Curagon : MonoBehaviour
 
     public void Clean()
     {
+        for(int i = 0; i < poopInGame.Length; i++)
+        {
+            if(poopInGame[i] != null)
+            {
+                Destroy(poopInGame[i]);
+            }
+        }
         poopOnFloor = 1.0f;
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Clean]);
     }
@@ -303,6 +357,17 @@ public class Curagon : MonoBehaviour
             // Debug.Log($"numOfApples: {numberOfApples}");
         }
     }
+
+    /*void AddChicken()
+    {
+        chickenTimer -= Time.deltaTime;
+        if (chickenTimer <= 0.0f)
+        {
+            chickenTimer = chickenTimeSeconds;
+            numberOfChickens++;
+            // Debug.Log($"numOfApples: {numberOfApples}");
+        }
+    }*/
 }
 public enum Curagon_Sounds : int
 {
