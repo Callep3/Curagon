@@ -27,6 +27,13 @@ public class UIManager : MonoBehaviour
     Image villageEXPImage;
     Image villageHealthImage;
 
+    [HideInInspector]
+    public bool gamePaused;
+
+    GameObject gamePanel;
+    GameObject pausePanel;
+    GameObject titlePanel;
+
     private void Awake()
     {
         if (instance == null)
@@ -38,12 +45,22 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        
+
+        Init();
+    }
+
+    private void Init()
+    {
         GetUIComponents();
+        
+        titlePanel.SetActive(true);
+        gamePanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
     private void GetUIComponents()
     {
+        Debug.Log("UIManager init start");
         happinessText = GameObject.Find("Happiness_NumberText").GetComponent<TMP_Text>();
         hungerText = GameObject.Find("Hunger_NumberText").GetComponent<TMP_Text>();
         staminaText = GameObject.Find("Stamina_NumberText").GetComponent<TMP_Text>();
@@ -63,6 +80,11 @@ public class UIManager : MonoBehaviour
         particleStats[0] = GameObject.Find("Happiness-Particle-Effect_Stats").GetComponent<ParticleStats>();
         particleStats[1] = GameObject.Find("Hunger-Particle-Effect_Stats").GetComponent<ParticleStats>();
         particleStats[2] = GameObject.Find("Stamina-Particle-Effect_Stats").GetComponent<ParticleStats>();
+
+        gamePanel = transform.GetChild(0).gameObject;
+        pausePanel = transform.GetChild(1).gameObject;
+        titlePanel = transform.GetChild(2).gameObject;
+        Debug.Log("UIManager init End");
     }
 
     public void UpdateStatsUI(float happiness, float hunger, float stamina)
@@ -147,10 +169,52 @@ public class UIManager : MonoBehaviour
 
     public void RestartButton()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Village.instance.Restart();
         curagon.Restart();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GetUIComponents();
         SoundManager.instance.ButtonSound();
+    }
+
+    public void PauseButton()
+    {
+        gamePanel.SetActive(false);
+        pausePanel.SetActive(true);
+
+        gamePaused = true;
+    }
+
+    public void Resume()
+    {
+        gamePanel.SetActive(true);
+        pausePanel.SetActive(false);
+        gamePaused = false;
+    }
+    public void Exit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
+        //Application.Quit();
+    }
+
+    public void SetCuragon(Curagon newCuragon)
+    {
+        curagon = newCuragon;
+    }
+
+    public void StartGame()
+    {
+        titlePanel.SetActive(false);
+        gamePanel.SetActive(true);
+        gamePaused = false;
+    }
+
+    public void HowToPlay()
+    {
+
     }
 }
 
@@ -160,5 +224,3 @@ public enum Particle_Stats : int
     Hunger,
     Stamina
 }
-
-

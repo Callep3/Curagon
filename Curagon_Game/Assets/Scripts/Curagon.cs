@@ -38,12 +38,16 @@ public class Curagon : MonoBehaviour
 
     void Update()
     {
-        AddApple();
-        UpdateStats();
+        if (!UIManager.instance.gamePaused)
+        {
+            AddApple();
+            UpdateStats();
+        }
     }
     
     void Init()
     {
+        Debug.Log("Curagon init start");
         GetAllComponents();
         
         happiness = maxHappiness;
@@ -58,6 +62,10 @@ public class Curagon : MonoBehaviour
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
         poopOnFloor = 1f;
+
+        UIManager.instance.SetCuragon(this);
+        Village.instance.SetCuragon(this);
+        Debug.Log("Curagon init end");
     }
 
     void GetAllComponents()
