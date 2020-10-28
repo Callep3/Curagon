@@ -4,54 +4,63 @@ using UnityEngine;
 
 public class Curagon : MonoBehaviour
 {
-    public float maxHappiness = 100f;
-    public float happiness;
-    public float maxHunger = 100f;
-    public float hunger;
-    public float maxStamina = 100f;
-    public float stamina;
-    public int maxPoop = 10;
-    public int poop;
-    [SerializeField] private float poopOnFloor = 1f;
-    private Animator animator;
+    Animator animator;
+    [SerializeField] GameObject ball;
+    
+    float happiness;
+    float hunger;
+    float stamina;
+    const float maxHappiness = 100f;
+    const float maxHunger = 100f;
+    const float maxStamina = 100f;
+    
+    int poop;
+    const int maxPoop = 10;
+    
+    int numberOfApples;
+    const float appleTimeSeconds = 5f;
+    float appleTimer;
 
-    public GameObject ball;
-
-    public int numberOfApples = 5;
-    static float appleTimeSeconds = 5f;
-    float appleTimer = appleTimeSeconds;
-
-    public float baseHappinessReductionRate;
-    public float baseHungerReductionRate;
-    public float baseStaminaReductionRate;
+    float baseHappinessReductionRate;
+    float baseHungerReductionRate;
+    float baseStaminaReductionRate;
+    float poopOnFloor;
 
     void Awake()
-    {//Get the animator
-        animator = GetComponent<Animator>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
     {
-        Restart();
+        Init();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Play"))
-        {
-            ball.SetActive(true);
-        }
-        else
-        {
-            ball.SetActive(false);
-        }
-
-
         AddApple();
         UpdateStats();
     }
+    
+    void Init()
+    {
+        GetAllComponents();
+        
+        happiness = maxHappiness;
+        hunger = maxHunger;
+        stamina = maxStamina;
+        poop = 0;
+        numberOfApples = 5;
+
+        appleTimer = appleTimeSeconds;
+
+        baseHappinessReductionRate = 1f;
+        baseHungerReductionRate = 1.25f;
+        baseStaminaReductionRate = 1.5f;
+        poopOnFloor = 1f;
+    }
+
+    void GetAllComponents()
+    {
+        animator = GetComponent<Animator>();
+        // ball = GameObject.Find("Curagon-Ball").gameObject;
+    }
+    
     private void UpdateStats()
     {
         UpdateHunger();
@@ -144,6 +153,7 @@ public class Curagon : MonoBehaviour
         }
         ClearAnimation();
         animator.SetBool("Play", true);
+        ball.SetActive(true);
 
         Village.instance.SetWork(false);
     }
@@ -214,11 +224,7 @@ public class Curagon : MonoBehaviour
 
     public void Restart()
     {
-        happiness = maxHappiness;
-        hunger = maxHunger;
-        stamina = maxStamina;
-        poopOnFloor = 1;
-        poop = 0;
+        Init();
     }
 
     void ClearAnimation()
@@ -226,19 +232,18 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Play", false);
         animator.SetBool("Idle", false);
         animator.SetBool("Sleep", false);
+        
+        ball.SetActive(false);
     }
 
     void AddApple()
     {
-        if(numberOfApples < 10)
+        appleTimer -= Time.deltaTime;
+        if (appleTimer <= 0.0f)
         {
-            appleTimer -= Time.deltaTime;
-            if (appleTimer <= 0.0f)
-            {
-                appleTimer = appleTimeSeconds;
-                numberOfApples++;
-                Debug.Log(numberOfApples);
-            }
+            appleTimer = appleTimeSeconds;
+            numberOfApples++;
+            // Debug.Log($"numOfApples: {numberOfApples}");
         }
     }
 }

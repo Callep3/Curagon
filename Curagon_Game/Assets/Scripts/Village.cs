@@ -6,15 +6,17 @@ public class Village : MonoBehaviour
 {
     public static Village instance = null;
 
-    [SerializeField] Curagon curagon;
+    Curagon curagon;
 
-    [SerializeField] private int level = 1;
-    [SerializeField] float experience = 0f;
+    int level = 1;
+    float experience = 0f;
     [SerializeField] float maxExperience = 100f;
-    [SerializeField] float health;
-    [SerializeField] float maxHealth = 60f;
-    [SerializeField] public bool working;
-    [SerializeField] private float workSpeedScale = 1f;
+    
+    float health;
+    float maxHealth = 60f;
+    
+    public bool working;
+    float workSpeedScale = 1f;
 
     private void Awake()
     {
@@ -28,7 +30,7 @@ public class Village : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        Restart();
+        Init();
     }
 
     private void Update()
@@ -40,6 +42,24 @@ public class Village : MonoBehaviour
         {
             Working();
         }
+    }
+
+    void Init()
+    {
+        GetAllComponents();
+        
+        working = false;
+        maxHealth = 60f;
+        health = maxHealth;
+        level = 1;
+        experience = 0;
+        maxExperience = 100;
+        workSpeedScale = 1f;
+    }
+
+    void GetAllComponents()
+    {
+        curagon = GameObject.FindGameObjectWithTag("Player").GetComponent<Curagon>();
     }
 
     private void Working()
@@ -71,12 +91,6 @@ public class Village : MonoBehaviour
 
     public void Restart()
     {
-        working = false;
-        maxHealth = 60f;
-        health = maxHealth;
-        level = 1;
-        experience = 0;
-        maxExperience = 100;
-        workSpeedScale = 1f;
+        Init();
     }
 }
