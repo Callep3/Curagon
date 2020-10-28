@@ -139,7 +139,7 @@ public class Curagon : MonoBehaviour
 
     public void Feed(float amount)
     {
-        if(numberOfApples > 0)
+        if (numberOfApples > 0)
         {
             numberOfApples -= 1;
             hunger += amount;
