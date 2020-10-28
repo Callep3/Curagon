@@ -61,6 +61,7 @@ public class Curagon : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         // ball = GameObject.Find("Curagon-Ball").gameObject;
+        // TEST COMMENT
     }
     
     private void UpdateStats()
