@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
     private void Init()
     {
         GetUIComponents();
-        
+
         titlePanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
@@ -62,6 +62,14 @@ public class UIManager : MonoBehaviour
     private void GetUIComponents()
     {
         Debug.Log("UIManager init start");
+        gamePanel = transform.GetChild(0).gameObject;
+        pausePanel = transform.GetChild(1).gameObject;
+        titlePanel = transform.GetChild(2).gameObject;
+
+        titlePanel.SetActive(true);
+        gamePanel.SetActive(true);
+        pausePanel.SetActive(true);
+
         happinessText = GameObject.Find("Happiness_NumberText").GetComponent<TMP_Text>();
         hungerText = GameObject.Find("Hunger_NumberText").GetComponent<TMP_Text>();
         staminaText = GameObject.Find("Stamina_NumberText").GetComponent<TMP_Text>();
@@ -82,9 +90,10 @@ public class UIManager : MonoBehaviour
         particleStats[1] = GameObject.Find("Hunger-Particle-Effect_Stats").GetComponent<ParticleStats>();
         particleStats[2] = GameObject.Find("Stamina-Particle-Effect_Stats").GetComponent<ParticleStats>();
 
-        gamePanel = transform.GetChild(0).gameObject;
-        pausePanel = transform.GetChild(1).gameObject;
-        titlePanel = transform.GetChild(2).gameObject;
+        titlePanel.SetActive(false);
+        gamePanel.SetActive(false);
+        pausePanel.SetActive(false);
+
         Debug.Log("UIManager init End");
     }
 
@@ -175,6 +184,7 @@ public class UIManager : MonoBehaviour
         curagon.Restart();
         GetUIComponents();
         SoundManager.instance.ButtonSound();
+        Resume();
     }
 
     public void PauseButton()
@@ -189,6 +199,7 @@ public class UIManager : MonoBehaviour
     {
         gamePanel.SetActive(true);
         pausePanel.SetActive(false);
+
         gamePaused = false;
     }
     public void Exit()
@@ -212,10 +223,12 @@ public class UIManager : MonoBehaviour
         Village.instance.Restart();
         curagon.Restart();
         SoundManager.instance.ButtonSound();
+        
+        Init();
+
         titlePanel.SetActive(false);
         gamePanel.SetActive(true);
         gamePaused = false;
-        GetUIComponents();
     }
 
     public void HowToPlay()
