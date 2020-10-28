@@ -61,6 +61,15 @@ public class Curagon : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         ball = transform.Find("GFX").Find("Curagon-Ball").gameObject;
+
+        string clipPath = "Audio/SFX/Curagon/";
+        audioClips = new AudioClip[6];
+        audioClips[0] = Resources.Load<AudioClip>(clipPath + "Curagon-Eat");
+        audioClips[1] = Resources.Load<AudioClip>(clipPath + "Curagon-Work");
+        audioClips[2] = Resources.Load<AudioClip>(clipPath + "Curagon-Clean");
+        audioClips[3] = Resources.Load<AudioClip>(clipPath + "Curagon-Play");
+        audioClips[4] = Resources.Load<AudioClip>(clipPath + "Curagon-Sleep");
+        audioClips[5] = Resources.Load<AudioClip>(clipPath + "Curagon-Poop");
     }
     
     private void UpdateStats()
@@ -85,7 +94,6 @@ public class Curagon : MonoBehaviour
         }
 
         hunger -= Time.deltaTime * baseHungerReductionRate * staminaScale;
-
         hunger = Mathf.Clamp(hunger, 0f, maxHunger);
     }
 
@@ -104,7 +112,6 @@ public class Curagon : MonoBehaviour
         }
 
         happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
-
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
 
@@ -117,7 +124,6 @@ public class Curagon : MonoBehaviour
         }
 
         stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
-
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
     }
 
@@ -175,6 +181,7 @@ public class Curagon : MonoBehaviour
         {
             happiness = maxHappiness;
         }
+        
         ClearAnimation();
         animator.SetBool("Play", true);
         ball.SetActive(true);
@@ -194,12 +201,12 @@ public class Curagon : MonoBehaviour
 
     public void Sleep(float amount)
     {
-
         stamina += amount;
         if (stamina >= maxStamina)
         {
             stamina = maxStamina;
         }
+        
         ClearAnimation();
         animator.SetBool("Sleep", true);
 
@@ -217,9 +224,7 @@ public class Curagon : MonoBehaviour
     {
         float workingConstant = 1;
         float staminaProcent = stamina / maxStamina;
-        float happinessProcent = happiness / maxHappiness;
-        float hungerProcent = hunger / maxHunger;
-
+        
         if (staminaProcent <= 0.2)
         {
             return 0;
@@ -228,6 +233,9 @@ public class Curagon : MonoBehaviour
         {
             workingConstant *= 1.5f;
         }
+        
+        float happinessProcent = happiness / maxHappiness;
+        float hungerProcent = hunger / maxHunger;
 
         if (happinessProcent <= 0.3)
         {

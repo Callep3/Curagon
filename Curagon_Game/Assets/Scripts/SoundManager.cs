@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
         curagon_audioSource = transform.Find("AudioSources").Find("CuragonAudio").GetComponent<AudioSource>();
         soundEffects_audioSource = transform.Find("AudioSources").Find("ButtonAudio").GetComponent<AudioSource>();
         audioClips = new AudioClip[1];
-        audioClips[0] = Resources.Load<AudioClip>("Audio/SFX/ButtonPressed_NoiseRemoved");
+        audioClips[0] = Resources.Load<AudioClip>("Audio/SFX/ButtonPressed_01");
     }
 
     public void ButtonSound()

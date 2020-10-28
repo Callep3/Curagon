@@ -20,7 +20,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8836dde3-9853-4d94-b766-4640fb1510b6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Minus_Mat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Minus_Mat.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Plus_Mat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Plus_Mat.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/ButtonPressed_NoiseRemoved.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/ButtonPressed_NoiseRemoved.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/Broom.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/Broom.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/Poop.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/Poop.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/cute-snore.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/cute-snore.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/kitten-meowing_0.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/kitten-meowing_0.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/kitten-meowing_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/kitten-meowing_1.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/kitten-meowing_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Audio/SFX/Curagon/kitten-meowing_3.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,10 +61,11 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" />
         <option value="$PROJECT_DIR$/Assets/SortingOrderFix.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Village.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Village.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" />
       </list>
     </option>
   </component>
@@ -88,6 +112,7 @@
       <workItem from="1603716001672" duration="204000" />
       <workItem from="1603786598411" duration="5551000" />
       <workItem from="1603873540974" duration="4014000" />
+      <workItem from="1603885154186" duration="246000" />
     </task>
     <servers />
   </component>

@@ -7,12 +7,26 @@ public class ParticleStats : MonoBehaviour
 {
     private ParticleSystem _particleSystem;
     private Renderer _renderer;
-    [SerializeField] private Material[] materials;
+    private Material[] materials;
 
     private void Awake()
     {
+        Init();
+    }
+
+    void Init()
+    {
+        GetAllComponents();
+    }
+
+    void GetAllComponents()
+    {
         _particleSystem = GetComponent<ParticleSystem>();
         _renderer = _particleSystem.GetComponent<Renderer>();
+        
+        materials = new Material[2];
+        materials[0] = Resources.Load<Material>("Materials/Plus_Mat");
+        materials[1] = Resources.Load<Material>("Materials/Minus_Mat");
     }
     
     public void SetMaterial (Particle_Material particleMat)
