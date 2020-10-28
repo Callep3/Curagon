@@ -253,7 +253,6 @@ public class Curagon : MonoBehaviour
         }
         
         float happinessProcent = happiness / maxHappiness;
-        float hungerProcent = hunger / maxHunger;
 
         if (happinessProcent <= 0.3)
         {
@@ -263,6 +262,8 @@ public class Curagon : MonoBehaviour
         {
             workingConstant *= 1.5f;
         }
+
+        float hungerProcent = hunger / maxHunger;
 
         if (hungerProcent <= 0.3)
         {
