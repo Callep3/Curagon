@@ -35,9 +35,12 @@ public class TestScript : MonoBehaviour
      * If starve(Hunger 0%), game over
      * 
      * - Village -
-     * When work, village recovers (is cured)
+     * When work, village gains experience
+     * When work, village recovers (is cured) and gains health
      * If you work enough, level up
+     * Village dies if health == 0
      * If village dies, game over
+     * Village health scales with level, level 1 = 1 day of survival for the village
      * 
      */
 }
