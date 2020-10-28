@@ -27,7 +27,6 @@ public class UIManager : MonoBehaviour
     Image villageEXPImage;
     Image villageHealthImage;
 
-    [HideInInspector]
     public bool gamePaused;
 
     GameObject gamePanel;
@@ -56,6 +55,8 @@ public class UIManager : MonoBehaviour
         titlePanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
+
+        gamePaused = true;
     }
 
     private void GetUIComponents()
@@ -207,9 +208,14 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Village.instance.Restart();
+        curagon.Restart();
+        SoundManager.instance.ButtonSound();
         titlePanel.SetActive(false);
         gamePanel.SetActive(true);
         gamePaused = false;
+        GetUIComponents();
     }
 
     public void HowToPlay()
