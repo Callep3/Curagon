@@ -14,6 +14,7 @@ public class Curagon : MonoBehaviour
     public int poop;
     [SerializeField] private float poopOnFloor = 1f;
     private Animator animator;
+    [SerializeField] private AudioClip[] audioClips;
 
     public GameObject ball;
 
@@ -24,6 +25,7 @@ public class Curagon : MonoBehaviour
     public float baseHappinessReductionRate;
     public float baseHungerReductionRate;
     public float baseStaminaReductionRate;
+    float poopScale;
 
     void Awake()
     {//Get the animator
@@ -57,6 +59,7 @@ public class Curagon : MonoBehaviour
         UpdateHunger();
         UpdateHappiness();
         UpdateStamina();
+        UpdatePoop();
 
         UIManager.instance.UpdateStatsUI( happiness / maxHappiness,
                                             hunger / maxHunger,
@@ -109,6 +112,22 @@ public class Curagon : MonoBehaviour
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
     }
 
+    private void UpdatePoop()
+    {
+        poopScale += Time.deltaTime;
+
+        if (poopScale >= 10)
+        {
+            poop += 1;
+            poopScale = 0;
+
+            if (poop >= maxPoop)
+            {
+                Poop();
+            }
+        }
+    }
+
     public void Feed(float amount)
     {
         if(numberOfApples > 0)
@@ -120,6 +139,10 @@ public class Curagon : MonoBehaviour
             if (poop >= maxPoop)
             {
                 Poop();
+            }
+            else
+            {
+                SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Eat]);
             }
 
             ClearAnimation();
@@ -133,6 +156,7 @@ public class Curagon : MonoBehaviour
     {
         poop = 0;
         poopOnFloor = 2.0f;
+        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Poop]);
     }
 
     public void Play(float amount)
@@ -146,6 +170,7 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Play", true);
 
         Village.instance.SetWork(false);
+        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Play]);
     }
 
     public void Work()
@@ -154,6 +179,7 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Work", true);
 
         Village.instance.SetWork(true);
+        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
     }
 
     public void Sleep(float amount)
@@ -168,11 +194,13 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Sleep", true);
 
         Village.instance.SetWork(false);
+        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
     }
 
     public void Clean()
     {
         poopOnFloor = 1.0f;
+        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Clean]);
     }
 
     public float GetWorkingCondition()
@@ -241,4 +269,13 @@ public class Curagon : MonoBehaviour
             }
         }
     }
+}
+public enum Curagon_Sounds : int
+{
+    Eat,
+    Work,
+    Clean,
+    Play,
+    Sleep,
+    Poop
 }

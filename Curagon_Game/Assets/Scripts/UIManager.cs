@@ -80,30 +80,35 @@ public class UIManager : MonoBehaviour
     {
         curagon.Feed(5f);
         particleStats[(int)Particle_Stats.Hunger].Play(Particle_Material.Plus);
+        SoundManager.instance.ButtonSound();
     }
 
     public void Play()
     {
         curagon.Play(5f);
         particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
+        SoundManager.instance.ButtonSound();
     }
 
     public void Work()
     {
         curagon.Work();
         particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Minus);
+        SoundManager.instance.ButtonSound();
     }
 
     public void Sleep()
     {
         curagon.Sleep(5f);
         particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Plus);
+        SoundManager.instance.ButtonSound();
     }
 
     public void Clean()
     {
         curagon.Clean();
         particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
+        SoundManager.instance.ButtonSound();
     }
 
     public void UpdateVillage(float health, float exp, int level)
@@ -124,6 +129,7 @@ public class UIManager : MonoBehaviour
         Village.instance.Restart();
         curagon.Restart();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SoundManager.instance.ButtonSound();
     }
 }
 
