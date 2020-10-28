@@ -5,7 +5,7 @@ using UnityEngine;
 public class Curagon : MonoBehaviour
 {
     Animator animator;
-    [SerializeField] GameObject ball;
+    GameObject ball;
     AudioClip[] audioClips;
     
     float happiness;
@@ -55,21 +55,12 @@ public class Curagon : MonoBehaviour
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
         poopOnFloor = 1f;
-
-
     }
 
     void GetAllComponents()
     {
         animator = GetComponent<Animator>();
-
-        audioClips = new AudioClip[6];
-        audioClips[0] = Resources.Load<AudioClip>("Audio/SFX/Curagon/kitten-meowing_0");
-        audioClips[1] = Resources.Load<AudioClip>("Audio/SFX/Curagon/kitten-meowing_1");
-        audioClips[2] = Resources.Load<AudioClip>("Audio/SFX/Curagon/Broom");
-        audioClips[3] = Resources.Load<AudioClip>("Audio/SFX/Curagon/kitten-meowing_3");
-        audioClips[4] = Resources.Load<AudioClip>("Audio/SFX/Curagon/cute-snore");
-        audioClips[5] = Resources.Load<AudioClip>("Audio/SFX/Curagon/Poop");
+        ball = transform.Find("GFX").Find("Curagon-Ball").gameObject;
     }
     
     private void UpdateStats()
