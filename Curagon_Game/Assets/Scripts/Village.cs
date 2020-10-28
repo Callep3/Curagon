@@ -35,17 +35,21 @@ public class Village : MonoBehaviour
 
     private void Update()
     {
-        health = Mathf.Clamp(health - Time.deltaTime, 0f, maxHealth);
-        UIManager.instance.UpdateVillage(health / maxHealth, experience / maxExperience, level);
-
-        if (working)
+        if (!UIManager.instance.gamePaused)
         {
-            Working();
+            health = Mathf.Clamp(health - Time.deltaTime, 0f, maxHealth);
+            UIManager.instance.UpdateVillage(health / maxHealth, experience / maxExperience, level);
+
+            if (working)
+            {
+                Working();
+            }
         }
     }
 
     void Init()
     {
+        Debug.Log("village init start");
         GetAllComponents();
         
         working = false;
@@ -55,6 +59,7 @@ public class Village : MonoBehaviour
         experience = 0;
         maxExperience = 100;
         workSpeedScale = 1f;
+        Debug.Log("village init end");
     }
 
     void GetAllComponents()
@@ -92,5 +97,10 @@ public class Village : MonoBehaviour
     public void Restart()
     {
         Init();
+    }
+
+    public void SetCuragon(Curagon newCuragon)
+    {
+        curagon = newCuragon;
     }
 }
