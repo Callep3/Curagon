@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance = null;
 
-    public AudioSource audioSource_ButtonSound;
+    public AudioSource button_audioSource;
     public AudioSource curagon_audioSource;
 
 
@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
     public void ButtonSound()
     {
-        audioSource_ButtonSound.Play();
+        button_audioSource.Play();
     }
 
     public void PlayCuragonSound(AudioClip clip)
