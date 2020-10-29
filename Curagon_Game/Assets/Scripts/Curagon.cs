@@ -18,6 +18,7 @@ public class Curagon : MonoBehaviour
     Transform poopSpawnTransform_02;
     Transform poopSpawnTransform_03;
 
+    [SerializeField]
     GameObject[] poopInGame;
 
     AudioClip[] audioClips;
@@ -30,7 +31,9 @@ public class Curagon : MonoBehaviour
     const float maxStamina = 100f;
     
     // When poop reaches maxPoop (Make a poop.)
+    [SerializeField]
     int poopStored;
+    [SerializeField]
     const int maxPoopStored = 10;
     
     int numberOfApples;
@@ -168,8 +171,7 @@ public class Curagon : MonoBehaviour
 
         stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-        //TODO
-        //Add sleep function
+        //TODO Add sleep function
     }
 
     private void UpdatePoop()
@@ -179,7 +181,7 @@ public class Curagon : MonoBehaviour
         if (poopTimer <= 0)
         {
             poopStored += 1;
-            poopTimer = 0;
+            poopTimer = poopTimeSeconds;
 
             if (poopStored >= maxPoopStored)
             {

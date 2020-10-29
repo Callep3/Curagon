@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     TMP_Text villageLevelText;
     TMP_Text villageHealthText;
 
+    //Fill bars
     Image happinessImage;
     Image hungerImage;
     Image staminaImage;
@@ -99,16 +100,20 @@ public class UIManager : MonoBehaviour
 
     public void UpdateStatsUI(float happiness, float hunger, float stamina)
     {
+        //Stats text
         happinessText.text = Mathf.CeilToInt(happiness * 100) + "%";
         hungerText.text = Mathf.CeilToInt(hunger * 100) + "%";
         staminaText.text = Mathf.CeilToInt(stamina * 100) + "%";
         
+        //Happiness bar
         happinessImage.fillAmount = happiness;
         happinessImage.color = GetStatusColor(happiness);
 
+        //Hunger bar
         hungerImage.fillAmount = hunger;
         hungerImage.color = GetStatusColor(hunger);
         
+        //Stamina bar
         staminaImage.fillAmount = stamina;
         staminaImage.color = GetStatusColor(stamina);
     }
@@ -119,9 +124,11 @@ public class UIManager : MonoBehaviour
         villageEXPText.text = Mathf.CeilToInt(exp * 100) + "%";
         villageLevelText.text = "LEVEL: " + level;
         
+        //Exp bar
         villageEXPImage.fillAmount = exp;
         villageEXPImage.color = GetStatusColor(exp);
 
+        //Health bar
         villageHealthImage.fillAmount = health;
         villageHealthImage.color = GetStatusColor(health);
     }
@@ -209,7 +216,6 @@ public class UIManager : MonoBehaviour
 #else
          Application.Quit();
 #endif
-        //Application.Quit();
     }
 
     public void SetCuragon(Curagon newCuragon)
@@ -220,8 +226,10 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
         Village.instance.Restart();
         curagon.Restart();
+        
         SoundManager.instance.ButtonSound();
         
         Init();
@@ -233,13 +241,13 @@ public class UIManager : MonoBehaviour
 
     public void HowToPlay()
     {
-
+        
     }
 }
 
 public enum Particle_Stats : int
 {
-    Happiness = 0,
-    Hunger,
-    Stamina
+    Happiness, // = 0
+    Hunger, // = 1
+    Stamina // = 2
 }

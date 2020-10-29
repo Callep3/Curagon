@@ -8,15 +8,15 @@ public class Village : MonoBehaviour
 
     Curagon curagon;
 
-    int level = 1;
-    float experience = 0f;
-    [SerializeField] float maxExperience = 100f;
+    int level;
+    float experience;
+    float maxExperience;
     
     float health;
-    float maxHealth = 60f;
+    float maxHealth;
     
     public bool working;
-    float workSpeedScale = 1f;
+    float workSpeedScale;
 
     private void Awake()
     {
@@ -87,6 +87,8 @@ public class Village : MonoBehaviour
             maxHealth *= 1.5f;
             health = maxHealth;
         }
+        
+        //TODO Make health increase when working
     }
 
     public void SetWork(bool active)

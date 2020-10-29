@@ -8,7 +8,6 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Curagon.cs" t="Include" />
-          <e p="MainMenu.cs" t="Include" />
           <e p="ParticleStats.cs" t="Include" />
           <e p="SoundManager.cs" t="Include" />
           <e p="TestScript.cs" t="Include" />
