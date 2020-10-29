@@ -19,8 +19,7 @@ public class Curagon : MonoBehaviour
     Transform poopSpawnTransform_02;
     Transform poopSpawnTransform_03;
 
-    [SerializeField]
-    protected GameObject[] poopInGame;
+    GameObject[] poopInGame;
 
     AudioClip[] audioClips;
     
@@ -32,10 +31,8 @@ public class Curagon : MonoBehaviour
     protected const float maxStamina = 100f;
     
     // When poop reaches maxPoop (Make a poop.)
-    [SerializeField]
-    protected int poopStored;
-    [SerializeField]
-    protected const int maxPoopStored = 10;
+    int poopStored;
+    const int maxPoopStored = 10;
     
     protected int numberOfApples;
     protected float appleTimer;
@@ -45,13 +42,17 @@ public class Curagon : MonoBehaviour
     protected float chickenTimer;
     protected const float chickenTimeSeconds = 2f;
     
-    protected float poopTimer;
-    protected const float poopTimeSeconds = 10f;
+    float poopTimer;
+    const float poopTimeSeconds = 10f;
+    
+    public bool sleeping;
+    public bool playing;
 
-    protected float baseHappinessReductionRate;
-    protected float baseHungerReductionRate;
-    protected float baseStaminaReductionRate;
-    protected float poopOnFloor;
+    float baseHappinessReductionRate;
+    float baseHungerReductionRate;
+    float baseStaminaReductionRate;
+    float staminaSleepingIncrease;
+    float poopOnFloor;
 
     protected void Awake()
     {
@@ -88,6 +89,7 @@ public class Curagon : MonoBehaviour
         baseHappinessReductionRate = 1f;
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
+        staminaSleepingIncrease = 5;
         poopOnFloor = 1f;
         
         poopInGame = new GameObject[3];
@@ -160,8 +162,15 @@ public class Curagon : MonoBehaviour
             hungerScale = 3;
         }
 
-        //           ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
-        happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
+        if (playing)
+        {
+            happiness += Time.deltaTime * baseHappinessReductionRate * hungerScale;
+        }
+        else
+        {   // ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
+            happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
+        }
+
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
 
@@ -172,10 +181,27 @@ public class Curagon : MonoBehaviour
         {
             workingScale = 3.0f;
         }
-
-        stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
+        
+        var staminaChange = Time.deltaTime * baseStaminaReductionRate *  workingScale;
+        if (sleeping)
+        {
+            stamina += staminaChange * staminaSleepingIncrease;
+            if (stamina >= maxStamina)
+            {
+                sleeping = false;
+            }
+            
+            SoundManager.instance.StopCuragonSound();
+            
+            ClearAnimation();
+            animator.SetBool("Sleep", sleeping);
+        }
+        else 
+        {
+            stamina -= staminaChange;
+        }
+        
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-        //TODO Add sleep function
     }
 
     protected virtual void UpdatePoop()
@@ -198,6 +224,7 @@ public class Curagon : MonoBehaviour
     {
         if (numberOfApples > 0)
         {
+            happiness += 2;
             numberOfApples--;
             hunger += amount;
 
@@ -218,6 +245,8 @@ public class Curagon : MonoBehaviour
             Destroy(apple, 0.8f);
             Village.instance.SetWork(false);
         }
+        sleeping = false;
+        playing = false;
     }
 
     private void Poop()
@@ -255,16 +284,25 @@ public class Curagon : MonoBehaviour
     }
 
     public void Play(float amount)
-    {
-        happiness = Mathf.Clamp(happiness + amount, 0, maxHappiness);        
-        
+    {  
+        if(playing)
+        {
+            playing = false;
+        }
+        else
+        {
+            playing = true;
+        }
+
         ClearAnimation();
-        animator.SetBool("Play", true);
-        ball.SetActive(true);
+        animator.SetBool("Play", playing);
+        ball.SetActive(playing);
 
         Village.instance.SetWork(false);
 
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Play]);
+        
+        sleeping = false;
     }
 
     public void Work()
@@ -277,18 +315,29 @@ public class Curagon : MonoBehaviour
         Village.instance.SetWork(true);
         
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
+        
+        sleeping = false;
+        playing = false;
     }
 
     public void Sleep(float amount)
     {
-        stamina = Mathf.Clamp(stamina + amount, 0, maxStamina);
+        if (sleeping)
+        {
+            sleeping = false;
+            SoundManager.instance.StopCuragonSound();
+        }
+        else
+        {
+            sleeping = true;
+            SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
+        }
 
         ClearAnimation();
-        animator.SetBool("Sleep", true);
+        animator.SetBool("Sleep", sleeping);
 
         Village.instance.SetWork(false);
-
-        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
+        playing = false;
     }
 
     public void Clean()
@@ -298,6 +347,7 @@ public class Curagon : MonoBehaviour
             if(poopInGame[i] != null)
             {
                 Destroy(poopInGame[i]);
+                happiness += 5;
             }
         }
         poopOnFloor = 1.0f;
