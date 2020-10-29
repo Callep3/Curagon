@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     GameObject gamePanel;
     GameObject pausePanel;
     GameObject titlePanel;
+    GameObject gameOverPanel;
 
     private void Awake()
     {
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour
         titlePanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
 
         gamePaused = true;
     }
@@ -66,10 +68,12 @@ public class UIManager : MonoBehaviour
         gamePanel = transform.GetChild(0).gameObject;
         pausePanel = transform.GetChild(1).gameObject;
         titlePanel = transform.GetChild(2).gameObject;
+        gameOverPanel = transform.GetChild(3).gameObject;
 
         titlePanel.SetActive(true);
         gamePanel.SetActive(true);
         pausePanel.SetActive(true);
+        gameOverPanel.SetActive(true);
 
         happinessText = GameObject.Find("Happiness_NumberText").GetComponent<TMP_Text>();
         hungerText = GameObject.Find("Hunger_NumberText").GetComponent<TMP_Text>();
@@ -94,6 +98,7 @@ public class UIManager : MonoBehaviour
         titlePanel.SetActive(false);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
 
         Debug.Log("UIManager init End");
     }
@@ -241,7 +246,21 @@ public class UIManager : MonoBehaviour
 
     public void HowToPlay()
     {
-        
+        //TODO Add quick and easy how to play
+        //One quick panel that tells you how to play
+    }
+
+    public void GameOver()
+    {
+        gamePanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        gamePaused = true;
+    }
+
+    public void MainMenu()
+    {
+        titlePanel.SetActive(true);
+        gameOverPanel.SetActive(false);
     }
 }
 

@@ -20,12 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8836dde3-9853-4d94-b766-4640fb1510b6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Canvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Canvas.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Village.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Village.cs" afterDir="false" />
     </list>
@@ -45,11 +43,11 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" />
         <option value="$PROJECT_DIR$/Assets/SortingOrderFix.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Village.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" />
       </list>
     </option>
   </component>
@@ -98,7 +96,7 @@
       <workItem from="1603786598411" duration="5551000" />
       <workItem from="1603873540974" duration="4014000" />
       <workItem from="1603885154186" duration="246000" />
-      <workItem from="1603966710249" duration="7993000" />
+      <workItem from="1603966710249" duration="10884000" />
     </task>
     <servers />
   </component>
