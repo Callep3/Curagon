@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,45 +20,50 @@ public class Curagon : MonoBehaviour
     Transform poopSpawnTransform_03;
 
     [SerializeField]
-    GameObject[] poopInGame;
+    protected GameObject[] poopInGame;
 
     AudioClip[] audioClips;
     
-    float happiness;
-    float hunger;
-    float stamina;
-    const float maxHappiness = 100f;
-    const float maxHunger = 100f;
-    const float maxStamina = 100f;
+    protected float happiness;
+    protected float hunger;
+    protected float stamina;
+    protected const float maxHappiness = 100f;
+    protected const float maxHunger = 100f;
+    protected const float maxStamina = 100f;
     
     // When poop reaches maxPoop (Make a poop.)
     [SerializeField]
-    int poopStored;
+    protected int poopStored;
     [SerializeField]
-    const int maxPoopStored = 10;
+    protected const int maxPoopStored = 10;
     
-    int numberOfApples;
-    float appleTimer;
-    const float appleTimeSeconds = 5f;
+    protected int numberOfApples;
+    protected float appleTimer;
+    protected const float appleTimeSeconds = 5f;
 
-    int numberOfChickens;
-    float chickenTimer;
-    const float chickenTimeSeconds = 2f;
+    protected int numberOfChickens;
+    protected float chickenTimer;
+    protected const float chickenTimeSeconds = 2f;
     
-    float poopTimer;
-    const float poopTimeSeconds = 10f;
+    protected float poopTimer;
+    protected const float poopTimeSeconds = 10f;
 
-    float baseHappinessReductionRate;
-    float baseHungerReductionRate;
-    float baseStaminaReductionRate;
-    float poopOnFloor;
+    protected float baseHappinessReductionRate;
+    protected float baseHungerReductionRate;
+    protected float baseStaminaReductionRate;
+    protected float poopOnFloor;
 
-    void Awake()
+    protected void Awake()
+    {
+        GetAllComponents();
+    }
+
+    protected virtual void Start()
     {
         Init();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (!UIManager.instance.gamePaused)
         {
@@ -67,11 +73,9 @@ public class Curagon : MonoBehaviour
     }
     
     // Initialize
-    void Init()
+    protected virtual void Init()
     {
         Debug.Log("Curagon init start");
-        GetAllComponents();
-        
         happiness = maxHappiness;
         hunger = maxHunger;
         stamina = maxStamina;
@@ -123,13 +127,13 @@ public class Curagon : MonoBehaviour
         UpdateHappiness();
         UpdateStamina();
         UpdatePoop();
-
+        
         UIManager.instance.UpdateStatsUI( happiness / maxHappiness,
                                             hunger / maxHunger,
                                             stamina / maxStamina);
     }
 
-    private void UpdateHunger()
+    protected virtual void UpdateHunger()
     {
         float staminaScale = 1;
         float staminaProcent = stamina / maxStamina;
@@ -143,7 +147,7 @@ public class Curagon : MonoBehaviour
     }
 
 
-    private void UpdateHappiness()
+    protected virtual void UpdateHappiness()
     {
         float hungerScale = 1;
         float hungerProcent = hunger / maxHunger;
@@ -161,7 +165,7 @@ public class Curagon : MonoBehaviour
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
 
-    private void UpdateStamina()
+    protected virtual void UpdateStamina()
     {
         float workingScale = 1;
         if (Village.instance.working)
@@ -174,7 +178,7 @@ public class Curagon : MonoBehaviour
         //TODO Add sleep function
     }
 
-    private void UpdatePoop()
+    protected virtual void UpdatePoop()
     {
         poopTimer -= Time.deltaTime;
 
@@ -190,7 +194,7 @@ public class Curagon : MonoBehaviour
         }
     }
 
-    public void Feed(float amount)
+    public virtual void Feed(float amount)
     {
         if (numberOfApples > 0)
         {
@@ -301,7 +305,7 @@ public class Curagon : MonoBehaviour
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Clean]);
     }
 
-    public float GetWorkingCondition()
+    public virtual float GetWorkingCondition()
     {
         float workingConstant = 1; //How well curagon is able to work
         

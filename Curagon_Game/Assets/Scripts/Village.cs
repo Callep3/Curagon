@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,11 @@ public class Village : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        GetAllComponents();
+    }
+
+    private void Start()
+    {
         Init();
     }
 
@@ -49,9 +55,6 @@ public class Village : MonoBehaviour
 
     void Init()
     {
-        Debug.Log("village init start");
-        GetAllComponents();
-        
         working = false;
         maxHealth = 60f;
         health = maxHealth;
@@ -59,7 +62,6 @@ public class Village : MonoBehaviour
         experience = 0;
         maxExperience = 100;
         workSpeedScale = 1f;
-        Debug.Log("village init end");
     }
 
     void GetAllComponents()

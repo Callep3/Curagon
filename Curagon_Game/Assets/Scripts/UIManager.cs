@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,14 +46,17 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        
+        GetUIComponents();
+    }
 
+    private void Start()
+    {
         Init();
     }
 
     private void Init()
     {
-        GetUIComponents();
-
         titlePanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
@@ -62,7 +66,6 @@ public class UIManager : MonoBehaviour
 
     private void GetUIComponents()
     {
-        Debug.Log("UIManager init start");
         gamePanel = transform.GetChild(0).gameObject;
         pausePanel = transform.GetChild(1).gameObject;
         titlePanel = transform.GetChild(2).gameObject;
@@ -94,8 +97,6 @@ public class UIManager : MonoBehaviour
         titlePanel.SetActive(false);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
-
-        Debug.Log("UIManager init End");
     }
 
     public void UpdateStatsUI(float happiness, float hunger, float stamina)
@@ -187,10 +188,12 @@ public class UIManager : MonoBehaviour
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
         Village.instance.Restart();
         curagon.Restart();
-        GetUIComponents();
+        
         SoundManager.instance.ButtonSound();
+        
         Resume();
     }
 
@@ -225,8 +228,6 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
         Village.instance.Restart();
         curagon.Restart();
         
