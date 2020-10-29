@@ -45,6 +45,7 @@ public class Curagon : MonoBehaviour
     const float poopTimeSeconds = 10f;
     
     public bool sleeping;
+    public bool playing;
 
     float baseHappinessReductionRate;
     float baseHungerReductionRate;
@@ -157,8 +158,15 @@ public class Curagon : MonoBehaviour
             hungerScale = 3;
         }
 
-        //           ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
-        happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
+        if (playing)
+        {
+            happiness += Time.deltaTime * baseHappinessReductionRate * hungerScale;
+        }
+        else
+        {   // ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
+            happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
+        }
+
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
 
@@ -212,6 +220,7 @@ public class Curagon : MonoBehaviour
     {
         if (numberOfApples > 0)
         {
+            happiness += 2;
             numberOfApples--;
             hunger += amount;
 
@@ -233,6 +242,7 @@ public class Curagon : MonoBehaviour
             Village.instance.SetWork(false);
         }
         sleeping = false;
+        playing = false;
     }
 
     private void Poop()
@@ -270,12 +280,19 @@ public class Curagon : MonoBehaviour
     }
 
     public void Play(float amount)
-    {
-        happiness = Mathf.Clamp(happiness + amount, 0, maxHappiness);        
-        
+    {  
+        if(playing)
+        {
+            playing = false;
+        }
+        else
+        {
+            playing = true;
+        }
+
         ClearAnimation();
-        animator.SetBool("Play", true);
-        ball.SetActive(true);
+        animator.SetBool("Play", playing);
+        ball.SetActive(playing);
 
         Village.instance.SetWork(false);
 
@@ -296,6 +313,7 @@ public class Curagon : MonoBehaviour
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
         
         sleeping = false;
+        playing = false;
     }
 
     public void Sleep(float amount)
@@ -315,6 +333,7 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Sleep", sleeping);
 
         Village.instance.SetWork(false);
+        playing = false;
     }
 
     public void Clean()
@@ -324,6 +343,7 @@ public class Curagon : MonoBehaviour
             if(poopInGame[i] != null)
             {
                 Destroy(poopInGame[i]);
+                happiness += 5;
             }
         }
         poopOnFloor = 1.0f;
