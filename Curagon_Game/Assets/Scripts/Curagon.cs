@@ -48,10 +48,10 @@ public class Curagon : MonoBehaviour
     public bool sleeping;
     public bool playing;
 
-    float baseHappinessReductionRate;
-    float baseHungerReductionRate;
-    float baseStaminaReductionRate;
-    float staminaSleepingIncrease;
+    protected float baseHappinessReductionRate;
+    protected float baseHungerReductionRate;
+    protected float baseStaminaReductionRate;
+    protected float staminaSleepingIncrease;
     float poopOnFloor;
 
     protected void Awake()

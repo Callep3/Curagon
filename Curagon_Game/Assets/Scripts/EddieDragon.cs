@@ -13,7 +13,7 @@ public class EddieDragon : Curagon
     protected override void Init()
     {
         base.Init();
-        
+
         baseHappinessReductionRate = 1f;
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
