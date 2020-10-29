@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bfc20c754ecae41ad54e277306b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poopInGame: []
-  poopStored: 0
+  sleeping: 0
+  playing: 0
 --- !u!95 &3396920049437425483
 Animator:
   serializedVersion: 3
@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3396920049945609155}
   m_Layer: 0
-  m_Name: AppleSpawnLocation
+  m_Name: FoodSpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

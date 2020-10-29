@@ -132,7 +132,14 @@ public class UIManager : MonoBehaviour
         staminaImage.fillAmount = stamina;
         staminaImage.color = GetStatusColor(stamina);
     }
-    
+
+    public void UpdateFoodStorageUI(int apples,int chickens)
+    {
+        appleCountText.text = apples.ToString();
+        chickenCountText.text = chickens.ToString();
+    }
+
+
     public void UpdateVillage(float health, float exp, int level)
     {
         villageHealthText.text = Mathf.CeilToInt(health * 100) + "%";
@@ -165,7 +172,12 @@ public class UIManager : MonoBehaviour
 
     public void AppleButton()
     {
-        Feed(5);
+        Feed(5, true);
+    }
+
+    public void ChickenButton()
+    {
+        Feed(10, false);
     }
 
     public void OpenFoodPanel()
@@ -174,9 +186,9 @@ public class UIManager : MonoBehaviour
     }
 
     // Buttons onClick();
-    public void Feed(float amount)
+    public void Feed(float amount, bool isApple)
     {
-        curagon.Feed(amount);
+        curagon.Feed(amount, isApple);
         particleStats[(int)Particle_Stats.Hunger].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
     }
