@@ -99,13 +99,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateStatsUI(float happiness, float hunger, float stamina)
     {
-        happinessText.text = Mathf.CeilToInt(happiness * 100).ToString() + "%";
-        hungerText.text = Mathf.CeilToInt(hunger * 100).ToString() + "%";
-        staminaText.text = Mathf.CeilToInt(stamina * 100).ToString() + "%";
+        happinessText.text = Mathf.CeilToInt(happiness * 100) + "%";
+        hungerText.text = Mathf.CeilToInt(hunger * 100) + "%";
+        staminaText.text = Mathf.CeilToInt(stamina * 100) + "%";
         
         happinessImage.fillAmount = happiness;
         happinessImage.color = GetStatusColor(happiness);
-        
+
         hungerImage.fillAmount = hunger;
         hungerImage.color = GetStatusColor(hunger);
         

@@ -8,7 +8,7 @@ public class Curagon : MonoBehaviour
 
     ParticleSystem smokeParticle;
 
-    GameObject ball;
+    GameObject ball; // Curagon's ball playing animation
 
     GameObject applePrefab;
     Transform appleSpawnTransform;
@@ -18,7 +18,7 @@ public class Curagon : MonoBehaviour
     Transform poopSpawnTransform_02;
     Transform poopSpawnTransform_03;
 
-    GameObject[] poopInGame = new GameObject[3];
+    GameObject[] poopInGame;
 
     AudioClip[] audioClips;
     
@@ -29,23 +29,26 @@ public class Curagon : MonoBehaviour
     const float maxHunger = 100f;
     const float maxStamina = 100f;
     
-    int poop;
-    const int maxPoop = 10;
+    // When poop reaches maxPoop (Make a poop.)
+    int poopStored;
+    const int maxPoopStored = 10;
     
     int numberOfApples;
-    const float appleTimeSeconds = 5f;
     float appleTimer;
+    const float appleTimeSeconds = 5f;
 
     int numberOfChickens;
-    const float chickenTimeSeconds = 2f;
     float chickenTimer;
+    const float chickenTimeSeconds = 2f;
+    
+    float poopTimer;
+    const float poopTimeSeconds = 10f;
 
     float baseHappinessReductionRate;
     float baseHungerReductionRate;
     float baseStaminaReductionRate;
     float poopOnFloor;
-    float poopScale;
-    
+
     void Awake()
     {
         Init();
@@ -60,6 +63,7 @@ public class Curagon : MonoBehaviour
         }
     }
     
+    // Initialize
     void Init()
     {
         Debug.Log("Curagon init start");
@@ -68,15 +72,18 @@ public class Curagon : MonoBehaviour
         happiness = maxHappiness;
         hunger = maxHunger;
         stamina = maxStamina;
-        poop = 0;
+        poopStored = 0;
         numberOfApples = 5;
 
         appleTimer = appleTimeSeconds;
+        poopTimer = poopTimeSeconds; 
 
         baseHappinessReductionRate = 1f;
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
         poopOnFloor = 1f;
+        
+        poopInGame = new GameObject[3];
 
         UIManager.instance.SetCuragon(this);
         Village.instance.SetCuragon(this);
@@ -146,6 +153,7 @@ public class Curagon : MonoBehaviour
             hungerScale = 3;
         }
 
+    //               ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
         happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
@@ -164,14 +172,14 @@ public class Curagon : MonoBehaviour
 
     private void UpdatePoop()
     {
-        poopScale += Time.deltaTime;
+        poopTimer -= Time.deltaTime;
 
-        if (poopScale >= 10)
+        if (poopTimer <= 0)
         {
-            poop += 1;
-            poopScale = 0;
+            poopStored += 1;
+            poopTimer = 0;
 
-            if (poop >= maxPoop)
+            if (poopStored >= maxPoopStored)
             {
                 Poop();
             }
@@ -185,8 +193,8 @@ public class Curagon : MonoBehaviour
             numberOfApples -= 1;
             hunger += amount;
 
-            poop += Mathf.FloorToInt(amount / 2);
-            if (poop >= maxPoop)
+            poopStored += Mathf.FloorToInt(amount / 2);
+            if (poopStored >= maxPoopStored)
             {
                 Poop();
             }
@@ -206,7 +214,7 @@ public class Curagon : MonoBehaviour
 
     private void Poop()
     {
-        poop = 0;
+        poopStored = 0;
         //poopOnFloor = 2.0f;
         //Spawn poop graphic
         for(int i = 0; i < poopInGame.Length; i++ )
