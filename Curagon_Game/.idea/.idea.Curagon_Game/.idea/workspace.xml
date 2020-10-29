@@ -20,10 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8836dde3-9853-4d94-b766-4640fb1510b6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Curagon_Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +41,11 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" />
         <option value="$PROJECT_DIR$/Assets/SortingOrderFix.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Village.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Village.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Curagon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SoundManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ParticleStats.cs" />
       </list>
     </option>
   </component>
@@ -93,8 +93,7 @@
       <workItem from="1603786598411" duration="5551000" />
       <workItem from="1603873540974" duration="4014000" />
       <workItem from="1603885154186" duration="246000" />
-      <workItem from="1603959630042" duration="3479000" />
-      <workItem from="1603964822018" duration="746000" />
+      <workItem from="1603966710249" duration="4354000" />
     </task>
     <servers />
   </component>
@@ -117,5 +116,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1603968333864">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603968333864" />
   </component>
 </project>

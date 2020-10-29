@@ -153,7 +153,7 @@ public class Curagon : MonoBehaviour
             hungerScale = 3;
         }
 
-    //               ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
+        //           ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
         happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
@@ -168,6 +168,8 @@ public class Curagon : MonoBehaviour
 
         stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+        //TODO
+        //Add sleep function
     }
 
     private void UpdatePoop()
@@ -190,7 +192,7 @@ public class Curagon : MonoBehaviour
     {
         if (numberOfApples > 0)
         {
-            numberOfApples -= 1;
+            numberOfApples--;
             hunger += amount;
 
             poopStored += Mathf.FloorToInt(amount / 2);
@@ -217,23 +219,23 @@ public class Curagon : MonoBehaviour
         poopStored = 0;
         //poopOnFloor = 2.0f;
         //Spawn poop graphic
-        for(int i = 0; i < poopInGame.Length; i++ )
+        for (int i = 0; i < poopInGame.Length; i++)
         {
-            if(poopInGame[i] == null)
+            if (poopInGame[i] == null)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     poopOnFloor = 2.0f;
                     GameObject poopClone = Instantiate(poopPrefab, poopSpawnTransform_01);
                     poopInGame[i] = poopClone;
                 }
-                else if(i == 1)
+                else if (i == 1)
                 {
                     poopOnFloor = 3.0f;
                     GameObject poopClone = Instantiate(poopPrefab, poopSpawnTransform_02);
                     poopInGame[i] = poopClone;
                 }
-                else if(i == 2)
+                else if (i == 2)
                 {
                     poopOnFloor = 4.0f;
                     GameObject poopClone = Instantiate(poopPrefab, poopSpawnTransform_03);
@@ -248,17 +250,14 @@ public class Curagon : MonoBehaviour
 
     public void Play(float amount)
     {
-        happiness += amount;
-        if (happiness >= maxHappiness)
-        {
-            happiness = maxHappiness;
-        }
+        happiness = Mathf.Clamp(happiness + amount, 0, maxHappiness);        
         
         ClearAnimation();
         animator.SetBool("Play", true);
         ball.SetActive(true);
 
         Village.instance.SetWork(false);
+
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Play]);
     }
 
@@ -268,22 +267,21 @@ public class Curagon : MonoBehaviour
         animator.SetBool("Work", true);
 
         smokeParticle.Play();
+        
         Village.instance.SetWork(true);
+        
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
     }
 
     public void Sleep(float amount)
     {
-        stamina += amount;
-        if (stamina >= maxStamina)
-        {
-            stamina = maxStamina;
-        }
-        
+        stamina = Mathf.Clamp(stamina + amount, 0, maxStamina);
+
         ClearAnimation();
         animator.SetBool("Sleep", true);
 
         Village.instance.SetWork(false);
+
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
     }
 
@@ -297,14 +295,16 @@ public class Curagon : MonoBehaviour
             }
         }
         poopOnFloor = 1.0f;
+        
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Clean]);
     }
 
     public float GetWorkingCondition()
     {
-        float workingConstant = 1;
-        float staminaProcent = stamina / maxStamina;
+        float workingConstant = 1; //How well curagon is able to work
         
+        //stamina
+        float staminaProcent = stamina / maxStamina;
         if (staminaProcent <= 0.2)
         {
             return 0;
@@ -314,8 +314,8 @@ public class Curagon : MonoBehaviour
             workingConstant *= 1.5f;
         }
         
+        //happiness
         float happinessProcent = happiness / maxHappiness;
-
         if (happinessProcent <= 0.3)
         {
             workingConstant *= 0.5f;
@@ -325,8 +325,8 @@ public class Curagon : MonoBehaviour
             workingConstant *= 1.5f;
         }
 
+        //hunger
         float hungerProcent = hunger / maxHunger;
-
         if (hungerProcent <= 0.3)
         {
             workingConstant *= 0.5f;
