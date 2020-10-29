@@ -14,6 +14,7 @@ public class Village : MonoBehaviour
     
     float health;
     float maxHealth;
+    float healingRate;
     
     public bool working;
     float workSpeedScale;
@@ -37,12 +38,20 @@ public class Village : MonoBehaviour
     {
         if (!UIManager.instance.gamePaused)
         {
-            health = Mathf.Clamp(health - Time.deltaTime, 0f, maxHealth);
-            UIManager.instance.UpdateVillage(health / maxHealth, experience / maxExperience, level);
-
             if (working)
             {
                 Working();
+            }
+            else
+            {
+                health -= Time.deltaTime;
+            }
+            health = Mathf.Clamp(health, 0f, maxHealth);
+            UIManager.instance.UpdateVillage(health / maxHealth, experience / maxExperience, level);
+            
+            if (health <= 0)
+            {
+                UIManager.instance.GameOver();
             }
         }
     }
@@ -55,6 +64,7 @@ public class Village : MonoBehaviour
         working = false;
         maxHealth = 60f;
         health = maxHealth;
+        healingRate = 5;
         level = 1;
         experience = 0;
         maxExperience = 100;
@@ -87,8 +97,8 @@ public class Village : MonoBehaviour
             maxHealth *= 1.5f;
             health = maxHealth;
         }
-        
-        //TODO Make health increase when working
+
+        health += Time.deltaTime * healingRate;
     }
 
     public void SetWork(bool active)

@@ -50,6 +50,11 @@ public class SoundManager : MonoBehaviour
         curagon_audioSource.clip = clip;
         curagon_audioSource.Play();
     }
+
+    public void StopCuragonSound()
+    {
+        curagon_audioSource.Stop();
+    }
 }
 
 public enum SoundEffects_Sounds : int

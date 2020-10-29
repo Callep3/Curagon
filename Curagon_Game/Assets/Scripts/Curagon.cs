@@ -18,7 +18,6 @@ public class Curagon : MonoBehaviour
     Transform poopSpawnTransform_02;
     Transform poopSpawnTransform_03;
 
-    [SerializeField]
     GameObject[] poopInGame;
 
     AudioClip[] audioClips;
@@ -31,9 +30,7 @@ public class Curagon : MonoBehaviour
     const float maxStamina = 100f;
     
     // When poop reaches maxPoop (Make a poop.)
-    [SerializeField]
     int poopStored;
-    [SerializeField]
     const int maxPoopStored = 10;
     
     int numberOfApples;
@@ -46,10 +43,13 @@ public class Curagon : MonoBehaviour
     
     float poopTimer;
     const float poopTimeSeconds = 10f;
+    
+    public bool sleeping;
 
     float baseHappinessReductionRate;
     float baseHungerReductionRate;
     float baseStaminaReductionRate;
+    float staminaSleepingIncrease;
     float poopOnFloor;
 
     void Awake()
@@ -84,6 +84,7 @@ public class Curagon : MonoBehaviour
         baseHappinessReductionRate = 1f;
         baseHungerReductionRate = 1.25f;
         baseStaminaReductionRate = 1.5f;
+        staminaSleepingIncrease = 5;
         poopOnFloor = 1f;
         
         poopInGame = new GameObject[3];
@@ -168,10 +169,27 @@ public class Curagon : MonoBehaviour
         {
             workingScale = 3.0f;
         }
-
-        stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
+        
+        var staminaChange = Time.deltaTime * baseStaminaReductionRate *  workingScale;
+        if (sleeping)
+        {
+            stamina += staminaChange * staminaSleepingIncrease;
+            if (stamina >= maxStamina)
+            {
+                sleeping = false;
+            }
+            
+            SoundManager.instance.StopCuragonSound();
+            
+            ClearAnimation();
+            animator.SetBool("Sleep", sleeping);
+        }
+        else 
+        {
+            stamina -= staminaChange;
+        }
+        
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-        //TODO Add sleep function
     }
 
     private void UpdatePoop()
@@ -214,6 +232,7 @@ public class Curagon : MonoBehaviour
             Destroy(apple, 0.8f);
             Village.instance.SetWork(false);
         }
+        sleeping = false;
     }
 
     private void Poop()
@@ -261,6 +280,8 @@ public class Curagon : MonoBehaviour
         Village.instance.SetWork(false);
 
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Play]);
+        
+        sleeping = false;
     }
 
     public void Work()
@@ -273,18 +294,27 @@ public class Curagon : MonoBehaviour
         Village.instance.SetWork(true);
         
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
+        
+        sleeping = false;
     }
 
     public void Sleep(float amount)
     {
-        stamina = Mathf.Clamp(stamina + amount, 0, maxStamina);
+        if (sleeping)
+        {
+            sleeping = false;
+            SoundManager.instance.StopCuragonSound();
+        }
+        else
+        {
+            sleeping = true;
+            SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
+        }
 
         ClearAnimation();
-        animator.SetBool("Sleep", true);
+        animator.SetBool("Sleep", sleeping);
 
         Village.instance.SetWork(false);
-
-        SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
     }
 
     public void Clean()
