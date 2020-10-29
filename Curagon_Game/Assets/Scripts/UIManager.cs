@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     TMP_Text villageEXPText;
     TMP_Text villageLevelText;
     TMP_Text villageHealthText;
+    TMP_Text appleCountText;
+    TMP_Text chickenCountText;
 
     //Fill bars
     Image happinessImage;
@@ -34,6 +36,7 @@ public class UIManager : MonoBehaviour
     GameObject pausePanel;
     GameObject titlePanel;
     GameObject gameOverPanel;
+    GameObject foodPanel;
 
     private void Awake()
     {
@@ -75,13 +78,17 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(true);
         gameOverPanel.SetActive(true);
 
+        foodPanel = GameObject.Find("FoodAlternativeButtons").gameObject;
+
         happinessText = GameObject.Find("Happiness_NumberText").GetComponent<TMP_Text>();
         hungerText = GameObject.Find("Hunger_NumberText").GetComponent<TMP_Text>();
         staminaText = GameObject.Find("Stamina_NumberText").GetComponent<TMP_Text>();
         villageEXPText = GameObject.Find("Village-EXP_NumberText").GetComponent<TMP_Text>();
         villageLevelText = GameObject.Find("Village-EXP_LevelText").GetComponent<TMP_Text>();
         villageHealthText = GameObject.Find("Village-Health_NumberText").GetComponent<TMP_Text>();
-        
+        appleCountText = foodPanel.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+        chickenCountText = foodPanel.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
+
         happinessImage = GameObject.Find("Happiness_BarFilling").GetComponent<Image>();
         hungerImage = GameObject.Find("Hunger_BarFilling").GetComponent<Image>();
         staminaImage = GameObject.Find("Stamina_BarFilling").GetComponent<Image>();
@@ -98,7 +105,6 @@ public class UIManager : MonoBehaviour
         titlePanel.SetActive(false);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
-        gameOverPanel.SetActive(false);
 
         Debug.Log("UIManager init End");
     }
@@ -153,10 +159,20 @@ public class UIManager : MonoBehaviour
         // return new Color(1, 0, 0);
     }
 
-    // Buttons onClick();
-    public void Feed()
+    public void AppleButton()
     {
-        curagon.Feed(5f);
+        Feed(5);
+    }
+
+    public void OpenFoodPanel()
+    {
+        foodPanel.SetActive(!foodPanel.activeInHierarchy);
+    }
+
+    // Buttons onClick();
+    public void Feed(float amount)
+    {
+        curagon.Feed(amount);
         particleStats[(int)Particle_Stats.Hunger].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
     }
@@ -166,6 +182,7 @@ public class UIManager : MonoBehaviour
         curagon.Play(5f);
         particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
+        foodPanel.SetActive(false);
     }
 
     public void Work()
@@ -173,6 +190,7 @@ public class UIManager : MonoBehaviour
         curagon.Work();
         particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Minus);
         SoundManager.instance.ButtonSound();
+        foodPanel.SetActive(false);
     }
 
     public void Sleep()
@@ -180,6 +198,7 @@ public class UIManager : MonoBehaviour
         curagon.Sleep(5f);
         particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
+        foodPanel.SetActive(false);
     }
 
     public void Clean()
@@ -187,6 +206,7 @@ public class UIManager : MonoBehaviour
         curagon.Clean();
         particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
+        foodPanel.SetActive(false);
     }
 
     public void RestartButton()
