@@ -241,7 +241,13 @@ public class UIManager : MonoBehaviour
 
     public void HowToPlay()
     {
-        
+        //TODO Add quick and easy how to play
+        //One quick panel that tells you how to play
+    }
+
+    public void GameOver()
+    {
+        //TODO GameOver Statement
     }
 }
 
