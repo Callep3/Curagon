@@ -267,7 +267,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b6d103eef2db0c41bc10df21fda5768, type: 2}
+  - {fileID: 2100000, guid: cb9ffb2481ae36241a8303063c976276, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -577,7 +577,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ac3b318e35d2594881860771961f6a7, type: 2}
+  - {fileID: 2100000, guid: 6d614d82f72abd3439749f7869fec8a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -649,8 +649,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d04bfd758eee6834b8aa05a62d7542c3, type: 2}
-  - {fileID: 2100000, guid: 770942280d564964988fea661d38d169, type: 2}
+  - {fileID: 2100000, guid: 4a82a29c8a1af624e872db9facdb022d, type: 2}
+  - {fileID: 2100000, guid: fdcd44304dad8f342bdf269de724e4c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -988,7 +988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5114960749278060978}
   m_Layer: 0
-  m_Name: Curagon
+  m_Name: Curagon_Brown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
