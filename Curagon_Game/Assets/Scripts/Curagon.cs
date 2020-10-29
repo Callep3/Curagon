@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Curagon : MonoBehaviour
 {
-    Animator animator;
+    protected Animator animator;
 
     ParticleSystem smokeParticle;
 
@@ -31,43 +31,43 @@ public class Curagon : MonoBehaviour
     protected const float maxHunger = 100f;
     protected const float maxStamina = 100f;
     
-    // When poop reaches maxPoop (Make a poop.)
+    // When poopStored reaches maxPoopStored [Make a Poop();]
     int poopStored;
     const int maxPoopStored = 10;
     
-    protected int numberOfApples;
-    protected const int maxNumberOfApples = 10;
-    protected float appleTimer;
-    protected const float appleTimeSeconds = 5f;
+    int numberOfApples;
+    const int maxNumberOfApples = 10;
+    float appleTimer;
+    const float appleTimeSeconds = 5f;
 
-    protected int numberOfChickens;
-    protected const int maxNumberOfChickens = 5;
-    protected float chickenTimer;
-    protected const float chickenTimeSeconds = 10f;
+    int numberOfChickens;
+    const int maxNumberOfChickens = 5;
+    float chickenTimer;
+    const float chickenTimeSeconds = 10f;
 
     float poopTimer;
     const float poopTimeSeconds = 10f;
     
-    public bool sleeping;
-    public bool playing;
+    protected bool sleeping;
+    protected bool playing;
 
     protected float baseHappinessReductionRate;
     protected float baseHungerReductionRate;
     protected float baseStaminaReductionRate;
     protected float staminaSleepingIncrease;
-    float poopOnFloor;
+    protected float poopOnFloor;
 
-    protected void Awake()
+    void Awake()
     {
         GetAllComponents();
     }
 
-    protected virtual void Start()
+    void Start()
     {
         Init();
     }
 
-    protected virtual void Update()
+    void Update()
     {
         if (!UIManager.instance.gamePaused)
         {
@@ -77,43 +77,17 @@ public class Curagon : MonoBehaviour
         }
     }
     
-    // Initialize
-    protected virtual void Init()
-    {
-        Debug.Log("Curagon init start");
-        happiness = maxHappiness;
-        hunger = maxHunger;
-        stamina = maxStamina;
-        poopStored = 0;
-        numberOfApples = 10;
-
-        appleTimer = appleTimeSeconds;
-        poopTimer = poopTimeSeconds; 
-
-        baseHappinessReductionRate = 1f;
-        baseHungerReductionRate = 1.25f;
-        baseStaminaReductionRate = 1.5f;
-        staminaSleepingIncrease = 5;
-        poopOnFloor = 1f;
-        
-        poopInGame = new GameObject[3];
-
-        UIManager.instance.SetCuragon(this);
-        Village.instance.SetCuragon(this);
-        Debug.Log("Curagon init end");
-    }
-
     void GetAllComponents()
     {
         animator = GetComponent<Animator>();
 
         ball = transform.Find("GFX").Find("Curagon-Ball").gameObject;
 
+        poopPrefab = Resources.Load<GameObject>("Prefabs/Poop");
         applePrefab = Resources.Load<GameObject>("Prefabs/Apple");
         chickenPrefab = Resources.Load<GameObject>("Prefabs/Chicken");
-        foodSpawnTransform = GameObject.Find("FoodSpawnLocation").transform;
 
-        poopPrefab = Resources.Load<GameObject>("Prefabs/Poop");
+        foodSpawnTransform = GameObject.Find("FoodSpawnLocation").transform;
         poopSpawnTransform_01 = GameObject.Find("PoopSpawnLocation_01").transform;
         poopSpawnTransform_02 = GameObject.Find("PoopSpawnLocation_02").transform;
         poopSpawnTransform_03 = GameObject.Find("PoopSpawnLocation_03").transform;
@@ -130,10 +104,34 @@ public class Curagon : MonoBehaviour
         audioClips[5] = Resources.Load<AudioClip>(clipPath + "Curagon-Poop");
     }
     
+    // Initialize
+    protected virtual void Init()
+    {
+        happiness = maxHappiness;
+        hunger = maxHunger;
+        stamina = maxStamina;
+        poopStored = 0;
+        numberOfApples = 10;
+
+        appleTimer = appleTimeSeconds;
+        poopTimer = poopTimeSeconds; 
+
+        baseHappinessReductionRate = 1f;
+        baseHungerReductionRate = 1.25f;
+        baseStaminaReductionRate = 1.5f;
+        staminaSleepingIncrease = 5;
+        poopOnFloor = 1f;
+        
+        poopInGame = new GameObject[3];
+        
+        UIManager.instance.SetCuragon(this);
+        Village.instance.SetCuragon(this);
+    }
+
     private void UpdateStats()
     {
-        UpdateHunger();
         UpdateHappiness();
+        UpdateHunger();
         UpdateStamina();
         UpdatePoop();
         
@@ -143,21 +141,7 @@ public class Curagon : MonoBehaviour
 
         UIManager.instance.UpdateFoodStorageUI(numberOfApples, numberOfChickens);
     }
-
-    protected virtual void UpdateHunger()
-    {
-        float staminaScale = 1;
-        float staminaProcent = stamina / maxStamina;
-        if (staminaProcent <= 0.4)
-        {
-            staminaScale = 2;
-        }
-
-        hunger -= Time.deltaTime * baseHungerReductionRate * staminaScale;
-        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
-    }
-
-
+    
     protected virtual void UpdateHappiness()
     {
         float hungerScale = 1;
@@ -181,6 +165,19 @@ public class Curagon : MonoBehaviour
         }
 
         happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
+    }
+
+    protected virtual void UpdateHunger()
+    {
+        float staminaScale = 1;
+        float staminaProcent = stamina / maxStamina;
+        if (staminaProcent <= 0.4)
+        {
+            staminaScale = 2;
+        }
+
+        hunger -= Time.deltaTime * baseHungerReductionRate * staminaScale;
+        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
     }
 
     protected virtual void UpdateStamina()
@@ -229,7 +226,7 @@ public class Curagon : MonoBehaviour
         }
     }
 
-    public virtual void Feed(float amount, bool isApple)
+    public void Feed(float amount, bool isApple)
     {
         if(isApple == true)
         {
@@ -288,6 +285,49 @@ public class Curagon : MonoBehaviour
         playing = false;
     }
 
+    // public virtual void Feed2(float amount, bool isApple)
+    // {
+    //     if (isApple && numberOfApples > 0)    // Är och finns äpplen?
+    //     {
+    //         numberOfApples--;
+    //         
+    //         GameObject apple = Instantiate(applePrefab, foodSpawnTransform);
+    //         Destroy(apple, 0.8f);
+    //     }
+    //     else if (!isApple && numberOfChickens > 0) // Annars är och finns kyckling?
+    //     {
+    //         numberOfChickens--;
+    //         
+    //         GameObject chicken = Instantiate(chickenPrefab, foodSpawnTransform);
+    //         Destroy(chicken, 0.8f);
+    //     }
+    //     else // Inget fanns på lager. Hej då.
+    //     {
+    //         return;
+    //     }
+    //     
+    //     happiness += 2;
+    //     hunger += amount;
+    //
+    //     poopStored += Mathf.FloorToInt(amount / 2);
+    //     if (poopStored >= maxPoopStored)
+    //     {
+    //         Poop();
+    //     }
+    //     else
+    //     {
+    //         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Eat]);
+    //     }
+    //
+    //     ClearAnimation();
+    //     animator.SetTrigger("Eat");
+    //     
+    //     Village.instance.SetWork(false);
+    //
+    //     sleeping = false;
+    //     playing = false;
+    // }
+
     private void Poop()
     {
         poopStored = 0;
@@ -322,9 +362,9 @@ public class Curagon : MonoBehaviour
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Poop]);
     }
 
-    public void Play(float amount)
+    public void Play()
     {  
-        if(playing)
+        if (playing)
         {
             playing = false;
         }
@@ -332,7 +372,7 @@ public class Curagon : MonoBehaviour
         {
             playing = true;
         }
-
+        
         ClearAnimation();
         animator.SetBool("Play", playing);
         ball.SetActive(playing);
@@ -346,12 +386,21 @@ public class Curagon : MonoBehaviour
 
     public void Work()
     {
+        if (Village.instance.working)
+        {
+            Village.instance.working = false;
+        }
+        else
+        {
+            Village.instance.working = true;
+        }
+        
         ClearAnimation();
-        animator.SetBool("Work", true);
+        animator.SetBool("Work", Village.instance.working);
 
         smokeParticle.Play();
         
-        Village.instance.SetWork(true);
+        Village.instance.SetWork(Village.instance.working);
         
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
         
@@ -359,7 +408,7 @@ public class Curagon : MonoBehaviour
         playing = false;
     }
 
-    public void Sleep(float amount)
+    public void Sleep()
     {
         if (sleeping)
         {
@@ -381,9 +430,9 @@ public class Curagon : MonoBehaviour
 
     public void Clean()
     {
-        for(int i = 0; i < poopInGame.Length; i++)
+        for (int i = 0; i < poopInGame.Length; i++)
         {
-            if(poopInGame[i] != null)
+            if (poopInGame[i] != null)
             {
                 Destroy(poopInGame[i]);
                 happiness += 5;
@@ -434,10 +483,10 @@ public class Curagon : MonoBehaviour
         return workingConstant;
     }
 
-    public void Restart()
-    {
-        Init();
-    }
+    // public void Restart()
+    // {
+    //     Init();
+    // }
 
     void ClearAnimation()
     {
@@ -457,7 +506,6 @@ public class Curagon : MonoBehaviour
         {
             appleTimer = appleTimeSeconds;
             numberOfApples = Mathf.Clamp(++numberOfApples, 0, maxNumberOfApples);
-            // Debug.Log($"numOfApples: {numberOfApples}");
         }
     }
 
@@ -468,8 +516,13 @@ public class Curagon : MonoBehaviour
         {
             chickenTimer = chickenTimeSeconds;
             numberOfChickens = Mathf.Clamp(++numberOfChickens, 0, maxNumberOfChickens);
-            // Debug.Log($"numOfApples: {numberOfApples}");
         }
+    }
+
+    public void StopWorking()
+    {
+        animator.SetBool("Work", false);
+        smokeParticle.Stop();
     }
 }
 public enum Curagon_Sounds : int

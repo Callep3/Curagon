@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3396920049437425525}
   - component: {fileID: 3396920049437425483}
-  - component: {fileID: -3415478414949058548}
+  - component: {fileID: -3813046684455167221}
   m_Layer: 0
   m_Name: C-Dragon [Eddie]
   m_TagString: Player
@@ -142,7 +142,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-3415478414949058548
+--- !u!114 &-3813046684455167221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,8 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fee7ed8ecec44d24abf9baa01fc0d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poopInGame: []
-  poopStored: 0
 --- !u!1 &3396920049945609154
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3396920049945609155}
   m_Layer: 0
-  m_Name: AppleSpawnLocation
+  m_Name: FoodSpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,6 +405,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3396920050997900431}
     m_Modifications:
+    - target: {fileID: 1180738546904315271, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb9ffb2481ae36241a8303063c976276, type: 2}
     - target: {fileID: 5114960749278060978, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.31

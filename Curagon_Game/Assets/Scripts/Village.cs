@@ -61,6 +61,11 @@ public class Village : MonoBehaviour
             }
         }
     }
+    
+    void GetAllComponents()
+    {
+        curagon = GameObject.FindGameObjectWithTag("Player").GetComponent<Curagon>();
+    }
 
     void Init()
     {
@@ -74,16 +79,12 @@ public class Village : MonoBehaviour
         workSpeedScale = 1f;
     }
 
-    void GetAllComponents()
-    {
-        curagon = GameObject.FindGameObjectWithTag("Player").GetComponent<Curagon>();
-    }
-
     private void Working()
     {
         if (curagon.GetWorkingCondition() <= 0)
         {
             working = false;
+            curagon.StopWorking();
             return;
         }
 

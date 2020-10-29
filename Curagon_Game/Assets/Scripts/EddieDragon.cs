@@ -5,149 +5,89 @@ using UnityEngine.UIElements;
 
 public class EddieDragon : Curagon
 {
-    protected override void Update()
-    {
-        base.Update();
-    }
-    
     protected override void Init()
     {
         base.Init();
 
-        baseHappinessReductionRate = 1f;
-        baseHungerReductionRate = 1.25f;
-        baseStaminaReductionRate = 1.5f;
-    }
-    
-    protected override void UpdateHunger()
-    {
-        base.UpdateHunger();
-        // float staminaScale = 1;
-        // float staminaProcent = stamina / maxStamina;
-        // if (staminaProcent <= 0.4)
-        // {
-        //     staminaScale = 2;
-        // }
-        //
-        // hunger -= Time.deltaTime * baseHungerReductionRate * staminaScale;
-        // hunger = Mathf.Clamp(hunger, 0f, maxHunger);
+        baseHappinessReductionRate = 1.10f;
+        baseHungerReductionRate = 1.15f;
+        baseStaminaReductionRate = 1.05f;
+        staminaSleepingIncrease = 4f;
     }
     
     protected override void UpdateHappiness()
     {
-        base.UpdateHappiness();
-        // float hungerScale = 1;
-        // float hungerProcent = hunger / maxHunger;
-        // if (hungerProcent <= 0.5)
-        // {
-        //     hungerScale = 2;
-        // }
-        // else if (hungerProcent <= 0.25)
-        // {
-        //     hungerScale = 3;
-        // }
-        //
-        // //           ( (Tid (1) * Base (1)) * Poop (1.25) ) * Hunger (2) = 2.5 
-        // happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerScale;
-        // happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
+        float hungerFactor;
+        
+        if (playing)
+        {
+            float playFactor = 4f;
+            hungerFactor = 0.5f + hunger / maxHunger;
+            happiness += Time.deltaTime * playFactor * hungerFactor / poopOnFloor;
+        }
+        else
+        {
+            hungerFactor = 1f + (1f - hunger / maxHunger);
+            float workingFactor = (Village.instance.working) ? 4f : 1f;
+
+            happiness -= Time.deltaTime * baseHappinessReductionRate * poopOnFloor * hungerFactor * workingFactor;
+        }
+        
+        happiness = Mathf.Clamp(happiness, 0f, maxHappiness);
     }
     
+    protected override void UpdateHunger()
+    {
+        float staminaFactor = 1f + (1f - stamina / maxStamina);
+        float workingFactor = (Village.instance.working) ? 2f : 1f;
+        float playFactor = (playing) ? 1.5f : 1f;
+
+        hunger -= Time.deltaTime * baseHungerReductionRate * staminaFactor * workingFactor * playFactor;
+        hunger = Mathf.Clamp(hunger, 0f, maxHunger);
+    }
+
     protected override void UpdateStamina()
     {
-        base.UpdateStamina();
-        // float workingScale = 1;
-        // if (Village.instance.working)
-        // {
-        //     workingScale = 3.0f;
-        // }
-        //
-        // stamina -= Time.deltaTime * baseStaminaReductionRate * workingScale;
-        // stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-        // //TODO Add sleep function
+        float hungerFactor;
+
+        if (sleeping)
+        {
+            hungerFactor = 1f + (1f - hunger / maxHunger);
+
+            stamina += Time.deltaTime * staminaSleepingIncrease * hungerFactor;
+
+            if (stamina >= maxStamina)
+            {
+                sleeping = false;
+                animator.SetBool("Sleep", false);
+                SoundManager.instance.StopCuragonSound();
+            }
+        }
+        else
+        {
+            hungerFactor = 1f + (1f - hunger / maxHunger);
+            float workingFactor = (Village.instance.working) ? 3f : 1f;
+            float playFactor = (playing) ? 1.75f : 1f;
+            
+            stamina -= Time.deltaTime * baseStaminaReductionRate * hungerFactor * workingFactor * playFactor;
+        }
+
+        stamina = Mathf.Clamp(stamina, 0f, maxStamina);
     }
     
     protected override void UpdatePoop()
     {
-        base.UpdatePoop();
-        // poopTimer -= Time.deltaTime;
-        //
-        // if (poopTimer <= 0)
-        // {
-        //     poopStored += 1;
-        //     poopTimer = poopTimeSeconds;
-        //
-        //     if (poopStored >= maxPoopStored)
-        //     {
-        //         Poop();
-        //     }
-        // }
-    }
-
-    public override void Feed(float amount)
-    {
-        base.Feed(amount);
-        // if (numberOfApples > 0)
-        // {
-        //     numberOfApples--;
-        //     hunger += amount;
-        //
-        //     poopStored += Mathf.FloorToInt(amount / 2);
-        //     if (poopStored >= maxPoopStored)
-        //     {
-        //         Poop();
-        //     }
-        //     else
-        //     {
-        //         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Eat]);
-        //     }
-        //
-        //     ClearAnimation();
-        //     animator.SetTrigger("Eat");
-        //
-        //     GameObject apple = Instantiate(applePrefab, appleSpawnTransform);
-        //     Destroy(apple, 0.8f);
-        //     Village.instance.SetWork(false);
-        // }
     }
 
     public override float GetWorkingCondition()
     {
-        return base.GetWorkingCondition();
-        // float workingConstant = 1; //How well curagon is able to work
-        //
-        // //stamina
-        // float staminaProcent = stamina / maxStamina;
-        // if (staminaProcent <= 0.2)
-        // {
-        //     return 0;
-        // }
-        // else if (staminaProcent >= 0.8)
-        // {
-        //     workingConstant *= 1.5f;
-        // }
-        //
-        // //happiness
-        // float happinessProcent = happiness / maxHappiness;
-        // if (happinessProcent <= 0.3)
-        // {
-        //     workingConstant *= 0.5f;
-        // }
-        // else if (happinessProcent >= 0.8)
-        // {
-        //     workingConstant *= 1.5f;
-        // }
-        //
-        // //hunger
-        // float hungerProcent = hunger / maxHunger;
-        // if (hungerProcent <= 0.3)
-        // {
-        //     workingConstant *= 0.5f;
-        // }
-        // else if (hungerProcent >= 0.8)
-        // {
-        //     workingConstant *= 1.5f;
-        // }
-        //
-        // return workingConstant;
+        if (stamina < 20 || happiness < 10 || hunger < 10)
+            return 0;
+
+        float happinessFactor = 0.75f + happiness / maxHappiness;
+        float hungerFactor = 0.5f + hunger / maxHunger;
+        float staminaFactor = 0.25f + stamina / maxStamina;
+
+        return staminaFactor * happinessFactor * hungerFactor;
     }
 }
