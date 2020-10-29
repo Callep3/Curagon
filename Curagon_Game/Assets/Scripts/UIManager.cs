@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     GameObject titlePanel;
     GameObject gameOverPanel;
     GameObject foodPanel;
+    GameObject howToPlay;
 
     private void Awake()
     {
@@ -61,6 +62,7 @@ public class UIManager : MonoBehaviour
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        howToPlay.SetActive(false);
 
         gamePaused = true;
     }
@@ -72,6 +74,7 @@ public class UIManager : MonoBehaviour
         pausePanel = transform.GetChild(1).gameObject;
         titlePanel = transform.GetChild(2).gameObject;
         gameOverPanel = transform.GetChild(3).gameObject;
+        howToPlay = transform.GetChild(2).GetChild(2).gameObject;
 
         titlePanel.SetActive(true);
         gamePanel.SetActive(true);
@@ -266,8 +269,12 @@ public class UIManager : MonoBehaviour
 
     public void HowToPlay()
     {
-        //TODO Add quick and easy how to play
-        //One quick panel that tells you how to play
+        howToPlay.SetActive(true);
+    }
+
+    public void CloseHowToPlay()
+    {
+        howToPlay.SetActive(false);
     }
 
     public void GameOver()
