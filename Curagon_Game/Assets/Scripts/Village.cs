@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +32,11 @@ public class Village : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        GetAllComponents();
+    }
+
+    private void Start()
+    {
         Init();
     }
 
@@ -55,12 +61,14 @@ public class Village : MonoBehaviour
             }
         }
     }
+    
+    void GetAllComponents()
+    {
+        curagon = GameObject.FindGameObjectWithTag("Player").GetComponent<Curagon>();
+    }
 
     void Init()
     {
-        Debug.Log("village init start");
-        GetAllComponents();
-        
         working = false;
         maxHealth = 60f;
         health = maxHealth;
@@ -69,12 +77,6 @@ public class Village : MonoBehaviour
         experience = 0;
         maxExperience = 100;
         workSpeedScale = 1f;
-        Debug.Log("village init end");
-    }
-
-    void GetAllComponents()
-    {
-        curagon = GameObject.FindGameObjectWithTag("Player").GetComponent<Curagon>();
     }
 
     private void Working()
@@ -82,6 +84,7 @@ public class Village : MonoBehaviour
         if (curagon.GetWorkingCondition() <= 0)
         {
             working = false;
+            curagon.StopWorking();
             return;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     Image villageEXPImage;
     Image villageHealthImage;
 
+    [SerializeField] private bool showPercentNumbers;
     public bool gamePaused;
 
     GameObject gamePanel;
@@ -50,26 +52,29 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        
+        GetUIComponents();
+    }
 
+    private void Start()
+    {
         Init();
     }
 
     private void Init()
     {
-        GetUIComponents();
-
         titlePanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         howToPlay.SetActive(false);
+        foodPanel.SetActive(false);
 
         gamePaused = true;
     }
 
     private void GetUIComponents()
     {
-        Debug.Log("UIManager init start");
         gamePanel = transform.GetChild(0).gameObject;
         pausePanel = transform.GetChild(1).gameObject;
         titlePanel = transform.GetChild(2).gameObject;
@@ -108,17 +113,24 @@ public class UIManager : MonoBehaviour
         titlePanel.SetActive(false);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
-
-        Debug.Log("UIManager init End");
     }
 
     public void UpdateStatsUI(float happiness, float hunger, float stamina)
     {
-        //Stats text
-        happinessText.text = Mathf.CeilToInt(happiness * 100) + "%";
-        hungerText.text = Mathf.CeilToInt(hunger * 100) + "%";
-        staminaText.text = Mathf.CeilToInt(stamina * 100) + "%";
-        
+        if (showPercentNumbers)
+        {
+            //Stats text
+            happinessText.text = Mathf.CeilToInt(happiness * 100) + "%";
+            hungerText.text = Mathf.CeilToInt(hunger * 100) + "%";
+            staminaText.text = Mathf.CeilToInt(stamina * 100) + "%";
+        }
+        else
+        {
+            happinessText.text = "";
+            hungerText.text = "";
+            staminaText.text = "";
+        }
+
         //Happiness bar
         happinessImage.fillAmount = happiness;
         happinessImage.color = GetStatusColor(happiness);
@@ -141,8 +153,17 @@ public class UIManager : MonoBehaviour
 
     public void UpdateVillage(float health, float exp, int level)
     {
-        villageHealthText.text = Mathf.CeilToInt(health * 100) + "%";
-        villageEXPText.text = Mathf.CeilToInt(exp * 100) + "%";
+        if (showPercentNumbers)
+        {
+            villageHealthText.text = Mathf.CeilToInt(health * 100) + "%";
+            villageEXPText.text = Mathf.CeilToInt(exp * 100) + "%";
+        }
+        else
+        {
+            villageHealthText.text = "";
+            villageEXPText.text = "";
+        }
+
         villageLevelText.text = "LEVEL: " + level;
         
         //Exp bar
@@ -194,7 +215,7 @@ public class UIManager : MonoBehaviour
 
     public void Play()
     {
-        curagon.Play(5f);
+        curagon.Play();
         particleStats[(int)Particle_Stats.Happiness].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
         foodPanel.SetActive(false);
@@ -210,7 +231,7 @@ public class UIManager : MonoBehaviour
 
     public void Sleep()
     {
-        curagon.Sleep(5f);
+        curagon.Sleep();
         particleStats[(int)Particle_Stats.Stamina].Play(Particle_Material.Plus);
         SoundManager.instance.ButtonSound();
         foodPanel.SetActive(false);
@@ -227,10 +248,12 @@ public class UIManager : MonoBehaviour
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
         Village.instance.Restart();
-        curagon.Restart();
-        GetUIComponents();
+        // curagon.Restart();
+
         SoundManager.instance.ButtonSound();
+        
         Resume();
     }
 
@@ -246,6 +269,8 @@ public class UIManager : MonoBehaviour
     {
         gamePanel.SetActive(true);
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        foodPanel.SetActive(false);
 
         gamePaused = false;
     }
@@ -265,10 +290,8 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
         Village.instance.Restart();
-        curagon.Restart();
+        // curagon.Restart();
         
         SoundManager.instance.ButtonSound();
         
