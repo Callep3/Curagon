@@ -409,6 +409,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cb9ffb2481ae36241a8303063c976276, type: 2}
+    - target: {fileID: 3777262979686995902, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d614d82f72abd3439749f7869fec8a9, type: 2}
     - target: {fileID: 5114960749278060978, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.31
@@ -453,6 +457,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5348428196933476796, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a82a29c8a1af624e872db9facdb022d, type: 2}
+    - target: {fileID: 5348428196933476796, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fdcd44304dad8f342bdf269de724e4c5, type: 2}
     - target: {fileID: 5598023948499991304, guid: 0da1a1c0448c93944a0b141df1998528, type: 3}
       propertyPath: m_Name
       value: Curagon
