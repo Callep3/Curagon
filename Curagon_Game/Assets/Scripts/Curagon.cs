@@ -198,9 +198,10 @@ public class Curagon : MonoBehaviour
             }
             
             SoundManager.instance.StopCuragonSound();
-            
-            ClearAnimation();
-            animator.SetBool("Sleep", sleeping);
+
+            animator.SetTrigger("Sleep");
+            //ClearAnimation();
+            //animator.SetBool("Sleep", sleeping);
         }
         else 
         {
@@ -366,15 +367,18 @@ public class Curagon : MonoBehaviour
     {  
         if (playing)
         {
+            StopWorking();
             playing = false;
         }
         else
         {
+            ClearAnimation();
+            animator.SetTrigger("Play");
             playing = true;
         }
         
-        ClearAnimation();
-        animator.SetBool("Play", playing);
+        //ClearAnimation();
+        //animator.SetBool("Play", playing);
         ball.SetActive(playing);
 
         Village.instance.SetWork(false);
@@ -388,23 +392,20 @@ public class Curagon : MonoBehaviour
     {
         if (Village.instance.working)
         {
+            StopWorking();
             Village.instance.working = false;
         }
         else
         {
+            ClearAnimation();
+            smokeParticle.Play();
+            animator.SetTrigger("Work");
             Village.instance.working = true;
         }
         
-        ClearAnimation();
-        animator.SetBool("Work", Village.instance.working);
-        if(Village.instance.working)
-        {
-            smokeParticle.Play();
-        }
-        else
-        {
-            smokeParticle.Stop();
-        }
+        //ClearAnimation();
+        //animator.SetTrigger("Work", Village.instance.working);
+    
         Village.instance.SetWork(Village.instance.working);
         
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
@@ -417,17 +418,19 @@ public class Curagon : MonoBehaviour
     {
         if (sleeping)
         {
+            StopWorking();
             sleeping = false;
             SoundManager.instance.StopCuragonSound();
         }
         else
         {
             sleeping = true;
+            ClearAnimation();
+            animator.SetTrigger("Sleep");
             SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
         }
 
-        ClearAnimation();
-        animator.SetBool("Sleep", sleeping);
+        //animator.SetBool("Sleep", sleeping);
 
         Village.instance.SetWork(false);
         playing = false;
@@ -495,12 +498,8 @@ public class Curagon : MonoBehaviour
 
     void ClearAnimation()
     {
-        animator.SetBool("Play", false);
         animator.SetBool("Idle", false);
-        animator.SetBool("Sleep", false);
-        animator.SetBool("Work", false);
         smokeParticle.Stop();
-        
         ball.SetActive(false);
     }
 
@@ -526,7 +525,7 @@ public class Curagon : MonoBehaviour
 
     public void StopWorking()
     {
-        animator.SetBool("Work", false);
+        animator.SetBool("Idle", true);
         smokeParticle.Stop();
     }
 }

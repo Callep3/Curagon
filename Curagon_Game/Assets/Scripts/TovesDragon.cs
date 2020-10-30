@@ -9,10 +9,10 @@ public class TovesDragon : Curagon
     {
         base.Init();
 
-        baseHappinessReductionRate = 1.10f;
-        baseHungerReductionRate = 1.15f;
-        baseStaminaReductionRate = 1.05f;
-        staminaSleepingIncrease = 4f;
+        baseHappinessReductionRate = 0.50f;
+        baseHungerReductionRate = 0.55f;
+        baseStaminaReductionRate = 0.30f;
+        staminaSleepingIncrease = 8f;
     }
     
     protected override void UpdateHappiness()
@@ -21,7 +21,7 @@ public class TovesDragon : Curagon
         
         if (playing)
         {
-            float playFactor = 4f;
+            float playFactor = 8f;
             hungerFactor = 0.5f + hunger / maxHunger;
             happiness += Time.deltaTime * playFactor * hungerFactor / poopOnFloor;
         }
