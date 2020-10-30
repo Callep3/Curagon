@@ -397,9 +397,14 @@ public class Curagon : MonoBehaviour
         
         ClearAnimation();
         animator.SetBool("Work", Village.instance.working);
-
-        smokeParticle.Play();
-        
+        if(Village.instance.working)
+        {
+            smokeParticle.Play();
+        }
+        else
+        {
+            smokeParticle.Stop();
+        }
         Village.instance.SetWork(Village.instance.working);
         
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
