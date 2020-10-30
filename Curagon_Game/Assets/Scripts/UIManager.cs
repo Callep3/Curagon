@@ -190,6 +190,7 @@ public class UIManager : MonoBehaviour
         // return new Color(1, 0, 0);
     }
 
+    // Buttons onClick();
     public void AppleButton()
     {
         Feed(5, true);
@@ -204,8 +205,7 @@ public class UIManager : MonoBehaviour
     {
         foodPanel.SetActive(!foodPanel.activeInHierarchy);
     }
-
-    // Buttons onClick();
+    
     public void Feed(float amount, bool isApple)
     {
         curagon.Feed(amount, isApple);
@@ -250,7 +250,6 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
         Village.instance.Restart();
-        // curagon.Restart();
 
         SoundManager.instance.ButtonSound();
         
@@ -291,8 +290,7 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         Village.instance.Restart();
-        // curagon.Restart();
-        
+
         SoundManager.instance.ButtonSound();
         
         Init();
