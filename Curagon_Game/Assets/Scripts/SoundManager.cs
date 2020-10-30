@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
         Init();
     }
-
+    
     private void Init()
     {
         GetAllComponents();

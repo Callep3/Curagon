@@ -197,8 +197,6 @@ public class Curagon : MonoBehaviour
                 animator.SetBool("Idle", true);
                 sleeping = false;
             }
-            
-            SoundManager.instance.StopCuragonSound();
         }
         else 
         {
@@ -356,9 +354,9 @@ public class Curagon : MonoBehaviour
         }
     
         Village.instance.SetWork(Village.instance.working);
-        
+
         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Work]);
-        
+
         sleeping = false;
         playing = false;
     }
@@ -373,13 +371,14 @@ public class Curagon : MonoBehaviour
         }
         else
         {
-            sleeping = true;
             ClearAnimation();
+            sleeping = true;
             animator.SetTrigger("Sleep");
             SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
         }
 
         Village.instance.SetWork(false);
+
         playing = false;
     }
 
