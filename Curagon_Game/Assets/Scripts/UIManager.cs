@@ -251,8 +251,6 @@ public class UIManager : MonoBehaviour
         
         Village.instance.Restart();
 
-        SoundManager.instance.ButtonSound();
-        
         Resume();
     }
 
@@ -262,6 +260,8 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(true);
 
         gamePaused = true;
+        
+        SoundManager.instance.ButtonSound();
     }
 
     public void Resume()
@@ -272,6 +272,8 @@ public class UIManager : MonoBehaviour
         foodPanel.SetActive(false);
 
         gamePaused = false;
+        
+        SoundManager.instance.ButtonSound();
     }
     public void Exit()
     {
@@ -303,6 +305,7 @@ public class UIManager : MonoBehaviour
     public void HowToPlay()
     {
         howToPlay.SetActive(true);
+        SoundManager.instance.ButtonSound();
     }
 
     public void CloseHowToPlay()
