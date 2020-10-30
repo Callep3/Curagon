@@ -70,7 +70,7 @@ public class Village : MonoBehaviour
     void Init()
     {
         working = false;
-        maxHealth = 60f;
+        maxHealth = 300f;
         health = maxHealth;
         healingRate = 5;
         level = 1;
