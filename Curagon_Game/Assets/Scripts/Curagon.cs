@@ -194,12 +194,11 @@ public class Curagon : MonoBehaviour
             stamina += staminaChange * staminaSleepingIncrease;
             if (stamina >= maxStamina)
             {
+                animator.SetBool("Idle", true);
                 sleeping = false;
             }
             
             SoundManager.instance.StopCuragonSound();
-
-            animator.SetTrigger("Sleep");
         }
         else 
         {
