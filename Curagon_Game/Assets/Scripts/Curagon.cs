@@ -200,8 +200,6 @@ public class Curagon : MonoBehaviour
             SoundManager.instance.StopCuragonSound();
 
             animator.SetTrigger("Sleep");
-            //ClearAnimation();
-            //animator.SetBool("Sleep", sleeping);
         }
         else 
         {
@@ -286,49 +284,6 @@ public class Curagon : MonoBehaviour
         playing = false;
     }
 
-    // public virtual void Feed2(float amount, bool isApple)
-    // {
-    //     if (isApple && numberOfApples > 0)    // Är och finns äpplen?
-    //     {
-    //         numberOfApples--;
-    //         
-    //         GameObject apple = Instantiate(applePrefab, foodSpawnTransform);
-    //         Destroy(apple, 0.8f);
-    //     }
-    //     else if (!isApple && numberOfChickens > 0) // Annars är och finns kyckling?
-    //     {
-    //         numberOfChickens--;
-    //         
-    //         GameObject chicken = Instantiate(chickenPrefab, foodSpawnTransform);
-    //         Destroy(chicken, 0.8f);
-    //     }
-    //     else // Inget fanns på lager. Hej då.
-    //     {
-    //         return;
-    //     }
-    //     
-    //     happiness += 2;
-    //     hunger += amount;
-    //
-    //     poopStored += Mathf.FloorToInt(amount / 2);
-    //     if (poopStored >= maxPoopStored)
-    //     {
-    //         Poop();
-    //     }
-    //     else
-    //     {
-    //         SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Eat]);
-    //     }
-    //
-    //     ClearAnimation();
-    //     animator.SetTrigger("Eat");
-    //     
-    //     Village.instance.SetWork(false);
-    //
-    //     sleeping = false;
-    //     playing = false;
-    // }
-
     private void Poop()
     {
         poopStored = 0;
@@ -377,8 +332,6 @@ public class Curagon : MonoBehaviour
             playing = true;
         }
         
-        //ClearAnimation();
-        //animator.SetBool("Play", playing);
         ball.SetActive(playing);
 
         Village.instance.SetWork(false);
@@ -402,9 +355,6 @@ public class Curagon : MonoBehaviour
             animator.SetTrigger("Work");
             Village.instance.working = true;
         }
-        
-        //ClearAnimation();
-        //animator.SetTrigger("Work", Village.instance.working);
     
         Village.instance.SetWork(Village.instance.working);
         
@@ -429,8 +379,6 @@ public class Curagon : MonoBehaviour
             animator.SetTrigger("Sleep");
             SoundManager.instance.PlayCuragonSound(audioClips[(int)Curagon_Sounds.Sleep]);
         }
-
-        //animator.SetBool("Sleep", sleeping);
 
         Village.instance.SetWork(false);
         playing = false;
@@ -490,11 +438,6 @@ public class Curagon : MonoBehaviour
 
         return workingConstant;
     }
-
-    // public void Restart()
-    // {
-    //     Init();
-    // }
 
     void ClearAnimation()
     {
